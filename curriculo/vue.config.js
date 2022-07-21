@@ -4,9 +4,10 @@ module.exports = defineConfig({
     'vuetify'
   ],
 
+  lintOnSave:false,
   publicPath: '',
 
   pluginOptions: {
-    cordovaPath: 'rhweb'
+    cordovaPath: 'mob-curriculo'
   }
 })

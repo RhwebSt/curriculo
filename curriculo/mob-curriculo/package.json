@@ -1,6 +1,6 @@
 {
-  "name": "com.vue.rhweb.app",
-  "displayName": "VueRhwebAppCurriculo",
+  "name": "com.vue.mobcurriculo.app",
+  "displayName": "VueMobAppCurriculo",
   "version": "1.0.0",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",

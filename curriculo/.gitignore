@@ -23,6 +23,6 @@ pnpm-debug.log*
 *.sw?
 
 # Cordova
-/rhweb/platforms
-/rhweb/plugins
+/mob-curriculo/platforms
+/mob-curriculo/plugins
 /public/cordova.js
