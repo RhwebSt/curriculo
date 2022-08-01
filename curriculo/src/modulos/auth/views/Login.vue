@@ -87,10 +87,10 @@ import {mapActions} from 'vuex'
       checkbox: false,
     }),
     created(){
-      this.ActionSetUser({name:'luis',email:'luis@gmail.com'})
+      this.ActionLogin('88133420')
     },
     methods: {
-      ...mapActions('auth',['ActionSetUser']),
+      ...mapActions('auth',['ActionLogin']),
       validate () {
         this.$refs.form.validate()
       },
@@ -101,7 +101,7 @@ import {mapActions} from 'vuex'
         this.$refs.form.resetValidation()
       },
       submit(){
-        console.log('ok')
+        this.ActionLogin('ok')
       }
     },
   }

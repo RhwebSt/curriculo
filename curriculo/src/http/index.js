@@ -4,7 +4,8 @@ import serves from "./serves";
 Vue.use(VueResource);
 const http = Vue.http;
 http.options.root = 'https://brasilapi.com.br/api/';
-Object.keys(serves).rap(serves =>{
+Object.keys(serves).map(serve =>{
     serves[serve] = Vue.resource('',{},serves[serve])
 })
 export{http}
+export default serves
