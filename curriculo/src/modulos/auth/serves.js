@@ -1,6 +1,6 @@
 export default{
     login:{
-        method:'get',
-        url:'cep/v1/88133420'
+        method:'post',
+        url:'user/login'
     }
 }

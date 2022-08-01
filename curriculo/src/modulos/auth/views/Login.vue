@@ -87,7 +87,7 @@ import {mapActions} from 'vuex'
       checkbox: false,
     }),
     created(){
-      this.ActionLogin('88133420')
+      this.ActionLogin({password:'765484',email:'ruambaia065@gmail.com'})
     },
     methods: {
       ...mapActions('auth',['ActionLogin']),
