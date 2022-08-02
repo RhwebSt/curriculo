@@ -100,8 +100,13 @@ import {mapActions} from 'vuex'
       resetValidation () {
         this.$refs.form.resetValidation()
       },
-      submit(){
-        this.ActionLogin('ok')
+      async submit(){
+        try{
+          await this.ActionLogin('ok')
+          // this.$router.push({name:'home'})
+        } catch (err){
+
+        }
       }
     },
   }
