@@ -1,6 +1,6 @@
 import store from "../store";
 export default async (to, from, next) => {
-    document.title = `${to.name}-Rhweb`
+    document.title = `${to.name}-Rhwe`
     if (to.name !== 'login' && !store.getters['auth/hasToken']) {
         try {
             await store.dispatch('auth/ActionCheckToken')
@@ -9,7 +9,7 @@ export default async (to, from, next) => {
             next({name:'login'})
         }
     }else{
-        console.log(next({name:''}));
+        // console.log(next({name:''}));
         // next({name:'login'})
         // if (to.name === 'login' && store.getters['auth/hasToken']) {
         //     next({name: 'home'})
@@ -17,4 +17,5 @@ export default async (to, from, next) => {
         //     next({name:'login'})
         // }
     }
+    next()
 }

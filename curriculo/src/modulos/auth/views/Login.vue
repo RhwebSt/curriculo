@@ -12,6 +12,7 @@
       :rules="nameRules"
       label="Name"
       required
+     
     ></v-text-field>
 
     <v-text-field
