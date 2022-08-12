@@ -5,8 +5,8 @@ import * as getters from "./getters";
 
 export default{
     state,
-    mutations,
     actions,
     getters,
+    mutations,
     namespaced: true
 }
