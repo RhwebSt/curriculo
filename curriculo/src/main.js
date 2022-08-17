@@ -8,7 +8,6 @@ import VueTailwind from 'vue-tailwind'
 import "./assets/scss/app.scss";
 import './assets/tailwind.css'
 Vue.config.productionTip = false
-
 new Vue({
   router,
   store,
