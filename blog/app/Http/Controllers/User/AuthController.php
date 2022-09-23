@@ -4,10 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\Login\Validacao;
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(Validacao $request)
     {
         $credentials = $request->only(['email', 'password']);
 

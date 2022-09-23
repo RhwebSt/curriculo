@@ -34,6 +34,16 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
+    public function cadastro($dados)
+    {
+        return User::create($dados);
+    }
+    public function editar($dados,$id)
+    {
+       
+        return User::where('id', $id)
+        ->update($dados);
+    }
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
