@@ -29,11 +29,10 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    public function pessoal()
+    {
+        return $this->hasMany(Pessoal::class);
+    }
     public function cadastro($dados)
     {
         return User::create($dados);

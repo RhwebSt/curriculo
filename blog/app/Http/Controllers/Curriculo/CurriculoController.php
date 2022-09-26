@@ -34,12 +34,12 @@ class CurriculoController extends Controller
      */
     public function index()
     {
-        $user =  $this->user->get();
+        $user =  $this->user->with(['pessoal.endereco','pessoal.academico'])->get();
         return DataTables::of($user)
-        ->columns($this->getColumns())
-        ->parameters([
-            'buttons' => ['excel'],
-        ])
+        // ->columns($this->getColumns())
+        // ->parameters([
+        //     'buttons' => ['excel'],
+        // ])
         ->make(true);
     }
 

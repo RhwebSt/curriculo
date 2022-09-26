@@ -24,4 +24,6 @@ Route::group(['middleware'=>['apiJwt']],function(){
 Route::get('curriculo/lista','Curriculo\\CurriculoController@index');
 Route::post('curriculo/cadastro','Curriculo\\CurriculoController@store');
 Route::post('user/login', 'User\\AuthController@login');
+Route::post('login/esquecir/senha', 'User\\AuthController@esquecirsenha');
+Route::post('contrata/mobe','Contrata\\ContrataController@store');
 

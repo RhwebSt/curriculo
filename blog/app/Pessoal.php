@@ -9,6 +9,18 @@ class Pessoal extends Model
     protected $fillable = [
         'pstitulopro', 'psnascimento', 'pstelefone', 'pssobrevoce', 'psfoto', 'user_id'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function endereco()
+    {
+        return $this->hasMany(Endereco::class);
+    }
+    public function academico()
+    {
+        return $this->hasMany(Academico::class);
+    }
     public function cadastro($dados)
     {
         return Pessoal::create($dados);

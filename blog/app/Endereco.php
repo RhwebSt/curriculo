@@ -9,6 +9,10 @@ class Endereco extends Model
     protected $fillable = [
         'escep', 'eslogradouro', 'esbairro', 'esestado', 'esmunicipio', 'escodmunic', 'esuf', 'escomplemento', 'esnum', 'pessoals_id'
     ];
+    public function pessoal()
+    {
+        return $this->belongsTo(Pessoal::class);
+    }
     public function cadastro($dados)
     {
         return Endereco::create($dados);

@@ -9,6 +9,10 @@ class Local extends Model
     protected $fillable = [
         'islocal', 'isidioma', 'isnivel', 'isdatainicio', 'isdatafinal', 'academico_id'
     ];
+    public function academico()
+    {
+        return $this->belongsTo(Academico::class);
+    }
     public function cadastro($dados)
     {
         return Local::create($dados);

@@ -9,6 +9,10 @@ class Profissional extends Model
     protected $fillable = [
         'psempresa', 'pscargo', 'psexperiencia', 'psdatainicio', 'psdatafinal', 'academico_id'
     ];
+    public function academico()
+    {
+        return $this->belongsTo(Academico::class);
+    }
     public function cadastro($dados)
     {
         return Profissional::create($dados);
