@@ -34,12 +34,12 @@ class CurriculoController extends Controller
      */
     public function index()
     {
-        $user =  $this->user->with(['pessoal.endereco','pessoal.academico'])->get();
+        $search = request('search');
+        $user =  $this->user
+        // ->with(['pessoal.endereco','pessoal.academico'])
+        ->where('name','like','%'.$search.'%')
+        ->get();
         return DataTables::of($user)
-        // ->columns($this->getColumns())
-        // ->parameters([
-        //     'buttons' => ['excel'],
-        // ])
         ->make(true);
     }
 
@@ -59,18 +59,23 @@ class CurriculoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Validacao $request)
+    public function store(Request $request)
     {
         $dados = $request->all();
-        try {
+    
+        
             $user = $this->user->cadastro($dados);
-            $this->pessoal->cadastro($dados);
+            $dados['user_id'] = $user['id'];
+            $pessoal = $this->pessoal->cadastro($dados);
+            $dados['pessoal_id'] = $pessoal['id'];
             $this->endereco->cadastro($dados);
-            $this->academico->cadastro($dados);
+            $academico = $this->academico->cadastro($dados);
+            $academico['academico_id'] = $academico['id'];
             $this->profissional->cadastro($dados);
             $this->local->cadastro($dados);
             $this->habilidade->cadastro($dados);
             return response()->json('Cadastro realizado com sucesso');
+            try {
         } catch (\Throwable $th) {
             $this->user->where('id',$user['id'])->delete();
             return response()->json('Não foi possível realizar o cadastro.',401);

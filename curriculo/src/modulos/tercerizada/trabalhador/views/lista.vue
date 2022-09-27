@@ -1,64 +1,97 @@
 <template>
   <v-card>
-    <table class="table elevation-1"  item-key="name"  loading
-    loading-text="Loading... Please wait" id="datatable">
-      <thead>
-        <tr>
-          <th class="text-left">
-            Name
-          </th>
-          <th class="text-left">
-            Calories
-          </th>
-        </tr>
-      </thead>
-  </table>
+   <v-card-title>
+      <v-text-field
+        v-model="search"
+        :search="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table
+      :headers="headers"
+      :items="all_items"
+      height="300px"
+      :server-items-length="totalPages"
+      fixed-header
+      :items-per-page="10"
+      :page="page"
+      :options.sync="options"
+      @update:options="onOptionsChanged"
+    ></v-data-table>
   </v-card>
 </template>
-<script>
-import "jquery/dist/jquery.min.js";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
-import $ from "jquery";
-  export default {
-     mounted() {
-        $("#datatable").DataTable({
-            processing:true,
-            serverSide:true,
-            searchable: false,
-            orderable: false,
-            'ajax':{
-                url:`https://brasilapi.com.br/api/banks/v1`,
-                type: "get",
-                
-            },
-            'columns':[
-                {'data':'esnome'},
-                {'data':'esinscricao'},
-                
-            ],
-            // 'columnDefs': [
-            //     {className: "limitaCarcteres", targets: [0,1,2]},
-            //     {className: "text-nowrap", targets: [2]},
-            // ],
-            "language": {
-                "infoEmpty": "mostrando",
-                "search":         "Pesquisar",
-                "info":           "Mostrando _START_ de _END_ registros",
-                "infoFiltered":   "",
-                "zeroRecords":    "Não há nenhum registro cadastrado <i class='fad fa-exclamation-triangle fa-lg' style='color: red !important;'>",
-                "lengthMenu":     "Mostrar _MENU_ registros",
-                "emptyTable":     "Não há dados disponíveis na tabela",
-                "loadingRecords": "Carregando...",
-                "paginate": {
-                    "first":      "Primeira",
-                    "last":       "Última",
-                    "next":       "Próxima",
-                    "previous":   "Anterior"
-                },
-            }
-        });
-     },
-  }
-</script>
+ <script>
+    import { mapState, mapActions} from 'vuex'
+    // import axios from "axios";
+    export default {
+      name: "datatable",
+      mounted() {
+       this.ActionLista('');
+        
+        // axios.get('http://127.0.0.1:8000/api/curriculo/lista?model_id=1').then(response => {
+        //   this.totalPages = response.data.count > 10 ? Math.ceil(response.data.count / 10) : 1
+        //   this.page = this.options.page
+        //   this.all_items = [];
+        //    for (let i = 0; i < response.data.data.length; i++) {
+        //       this.dados.name = response.data.data[i].name
+        //       this.dados.email = response.data.data[i].email
+        //       this.all_items.push(this.dados)
+        //     }
+        // })
+      },
+      watch: {
+        search: function (val) {
+          this.search = val
+          this.onOptionsChanged(this.options, true)
+          return val
+        }
+      },
+      methods: {
+        ...mapActions('trabalhador',['ActionLista']),
+        onOptionsChanged(options, page0=false) {
+        
+          // axios.get('http://127.0.0.1:8000/api/curriculo/lista?model_id=1' +
+          //     '&page=' +
+          //     (!page0 ? this.options.page : 1) +
+          //     '&search=' +
+          //     this.search).then(response => {
+          //   this.page = !page0 ? this.options.page : 1
+          //   this.totalPages = response.data.count > 10 ? Math.ceil(response.data.count / 10) : 1
+          //   this.all_items = [];
+          //   for (let i = 0; i < response.data.data.length; i++) {
+          //     this.dados.name = response.data.data[i].name
+          //     this.dados.email = response.data.data[i].email
+          //     this.all_items.push(this.dados)
+          //   }
+          // })
+    
+        },
+      },
+      data() {
+        return {
+          search: "",
+          options: {},
+          dados : {
+            name:'',
+            email:''
+          },
+          headers: [{
+            text: 'Nome',
+            value: 'name',
+          },
+          { 
+            text: 'Email', 
+            value: 'email' 
+          },
+          ],
+          all_items: [],
+          pageSize: 10,
+          totalPages: 0,
+          page: 1,
+        }
+      },
+    }
+    </script>

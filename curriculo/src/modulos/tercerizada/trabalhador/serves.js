@@ -1,6 +1,6 @@
 export default{
-    login:{
-        method:'post',
-        url:''
+    lista:{
+        method:'get',
+        url:'curriculo/lista?model_id=1'
     }
 }
