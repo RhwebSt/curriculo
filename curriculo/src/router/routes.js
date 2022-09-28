@@ -1,10 +1,15 @@
 
 import {route as auth} from '../modulos/auth'
-import { route as home } from "../modulos/home";
-import { route as trabalhador } from "../modulos/tercerizada/trabalhador";
+import {route as index} from '../modulos/index'
+import {route as curriculo} from '../modulos/curriculo'
+import {route as admin} from '../modulos/admin'
+
+
 
 export default [
     ...auth,
-    ...home,
-    ...trabalhador
+    ...index,
+    ...curriculo,
+    ...admin,
+
 ]

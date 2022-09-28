@@ -32,7 +32,7 @@ class Academico extends Model
     public function editar($dados,$id)
     {
        
-        return Academico::where('pessoals_id', $id)
+        return Academico::where('pessoal_id', $id)
         ->update($dados);
     }
 }

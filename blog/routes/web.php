@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('curriculo/imprimir','Curriculo\\CurriculoController@show');
+Route::get('curriculo/imprimir/{id}','Curriculo\\CurriculoController@show');

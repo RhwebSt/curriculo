@@ -1,4 +1,0 @@
-export default{
-    listatrabalhador:'',
-    editartrabalhador:{}
-}

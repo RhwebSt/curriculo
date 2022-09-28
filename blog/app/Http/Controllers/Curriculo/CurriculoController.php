@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Curriculo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Curriculo\Validacao;
+use Illuminate\Support\Facades\DB;
 use App\Pessoal;
 use App\User;
 use App\Academico;
@@ -36,9 +37,16 @@ class CurriculoController extends Controller
     {
         $search = request('search');
         $user =  $this->user
-        // ->with(['pessoal.endereco','pessoal.academico'])
-        ->where('name','like','%'.$search.'%')
-        ->get();
+        ->join('pessoals', 'users.id', '=', 'pessoals.user_id')
+        ->join('enderecos', 'pessoals.id', '=', 'enderecos.pessoal_id')
+        ->select('users.name','pessoals.user_id','pessoals.psnascimento','pessoals.pssexo','pessoals.pstelefone','enderecos.*')
+        ->where('users.name','like','%'.$search.'%')
+        ->orWhere('pessoals.psnascimento','like','%'.$search.'%')
+        ->orWhere('pessoals.pstelefone','like','%'.$search.'%')
+        ->orWhere('enderecos.esbairro','like','%'.$search.'%')
+        ->orWhere('enderecos.esestado','like','%'.$search.'%')
+        ->orWhere('enderecos.esmunicipio','like','%'.$search.'%')
+        ->orderBy('created_at', 'desc');
         return DataTables::of($user)
         ->make(true);
     }
@@ -70,7 +78,7 @@ class CurriculoController extends Controller
             $dados['pessoal_id'] = $pessoal['id'];
             $this->endereco->cadastro($dados);
             $academico = $this->academico->cadastro($dados);
-            $academico['academico_id'] = $academico['id'];
+            $dados['academico_id'] = $academico['id'];
             $this->profissional->cadastro($dados);
             $this->local->cadastro($dados);
             $this->habilidade->cadastro($dados);
@@ -91,8 +99,12 @@ class CurriculoController extends Controller
      */
     public function show($id)
     {
-        $pdf = PDF::loadView('teste');
-        return $pdf->setPaper('a4')->stream('relatoria.pdf');
+        $user =  $this->user->where('id',$id)
+        ->with(['pessoal','pessoal.endereco','pessoal.academico','pessoal.academico.local','pessoal.academico.profissional','pessoal.academico.habilidade'])
+        ->first();
+        // dd($user);
+        $pdf = PDF::loadView('curriculo',compact('user'));
+        return $pdf->setPaper('a4')->stream('curriculo_'.$user->name.'.pdf');
     }
 
     /**

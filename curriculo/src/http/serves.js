@@ -1,6 +1,8 @@
 import { serves as auth } from "@/modulos/auth";
-import { serves as trabalhador } from "@/modulos/tercerizada/trabalhador";
+import { serves as curriculo } from "@/modulos/curriculo";
+import { serves as admin } from "@/modulos/admin";
 export default{
     auth,
-    trabalhador
+    curriculo,
+    admin
 }

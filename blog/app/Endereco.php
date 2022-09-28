@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Endereco extends Model
 {
     protected $fillable = [
-        'escep', 'eslogradouro', 'esbairro', 'esestado', 'esmunicipio', 'escodmunic', 'esuf', 'escomplemento', 'esnum', 'pessoals_id'
+        'escep', 'eslogradouro', 'esbairro', 'esestado', 'esmunicipio', 'escodmunic', 'esuf', 'escomplemento', 'esnum', 'pessoal_id'
     ];
     public function pessoal()
     {
@@ -19,7 +19,7 @@ class Endereco extends Model
     }
     public function editar($dados,$id)
     {
-        return Endereco::where('pessoals_id', $id)
+        return Endereco::where('pessoal_id', $id)
         ->update($dados);
     }
 }
