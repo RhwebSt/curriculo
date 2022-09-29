@@ -67,11 +67,11 @@ class CurriculoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Validacao $request)
     {
         $dados = $request->all();
     
-        
+        try {
             $user = $this->user->cadastro($dados);
             $dados['user_id'] = $user['id'];
             $pessoal = $this->pessoal->cadastro($dados);
@@ -83,7 +83,6 @@ class CurriculoController extends Controller
             $this->local->cadastro($dados);
             $this->habilidade->cadastro($dados);
             return response()->json('Cadastro realizado com sucesso');
-            try {
         } catch (\Throwable $th) {
             $this->user->where('id',$user['id'])->delete();
             return response()->json('Não foi possível realizar o cadastro.',401);

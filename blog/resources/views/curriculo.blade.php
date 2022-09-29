@@ -83,14 +83,18 @@
 <body>
     <header>
         <p>{{strtoupper($user->name)}}</p>
-        <p class="titulo-profissional">{{strtoupper($user->ascurso)}}</p>
+        <p class="titulo-profissional">{{strtoupper($user->pessoal[0]->academico[0]->ascurso)}}</p>
     </header>
 
     <div class="perfil">
         <h3 class="title-perfil">Perfil</h3>
         <div class="">
             <div class="div-img-perfil">
+                @if($user->pessoal[0]->psfoto)
+                <img class="img-perfil" src="{{$user->pessoal[0]->psfoto}}" alt="">
+                @else
                 <img class="img-perfil" src="https://i.pinimg.com/236x/31/4f/2a/314f2a1f891f259d70d75b603616827a.jpg" alt="">
+                @endif
             </div>
             <div class="div-conteudo-perfil">
                 <p><b>Telefone:</b> {{$user->pessoal[0]->pstelefone}}</p>
