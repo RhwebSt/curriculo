@@ -1,6 +1,16 @@
 import serves from "@/http";
 import * as storage from "../storage";
 import * as types from "./mutations-type";
+export const ActionContrato = ({dispatch},payload)=>{
+    return serves.home.contrato(payload).then(res=>{
+        dispatch('ActionSetMsg',res)
+    }).catch(res=>{
+        dispatch('ActionSetMsg',res)
+    })
+}
+export const ActionSetMsg = ({commit},payload)=>{
+    commit(types.SET_MSG,payload)
+}
 // export const ActionLogin = ({dispatch},payload)=>{
 //     return serves.auth.login(payload).then(res => {
         
@@ -56,20 +66,3 @@ import * as types from "./mutations-type";
 //     storage.deleteLocalToken();
 //     dispatch('ActionSetToken','');
 // }
-export const ActionLista = ({dispatch},payload)=>{
-    return serves.admin.listacurriculo(payload).then(res => {
-        dispatch('ActionSetLista',res.data)
-    }).catch(res => {
-        if (res.status == 401) {
-            dispatch('ActionSignOut')
-        }
-    })
-}
-export const ActionSetLista = ({commit},payload) =>{
-    commit(types.SET_TRABALHADOR_LISTA,payload)
-}
-export const ActionSignOut = ({dispatch})=>{
-    storage.setHeaderToken('');
-    storage.deleteLocalToken();
-    dispatch('ActionSetToken','');
-}

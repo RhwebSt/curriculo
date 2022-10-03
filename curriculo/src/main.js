@@ -8,6 +8,8 @@ import VueTailwind from 'vue-tailwind'
 import "./assets/scss/app.scss";
 import './assets/tailwind.css'
 Vue.config.productionTip = false
+import Maska from 'maska'
+Vue.use(Maska)
 new Vue({
   router,
   store,

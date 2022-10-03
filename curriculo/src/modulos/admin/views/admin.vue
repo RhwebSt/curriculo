@@ -6,7 +6,7 @@
       <div class="bg-blue-900 flex justify-between">
         <img class="self-center w-44 ms-6" src="/img/logoMobeBranca.png" alt="">
         <ul class="self-center me-6 text-gray-50">
-          <li class="text-gray-50 font-header text-sm md:text-lg hover:scale-110 hover:underline hover:decoration-indigo-500 hover:decoration-4 cursor-pointer"><router-link tag="li" to="/">Sair</router-link></li>
+          <li @click="sair()" class="text-gray-50 font-header text-sm md:text-lg hover:scale-110 hover:underline hover:decoration-indigo-500 hover:decoration-4 cursor-pointer">Sair</li>
         </ul>
       </div>
 
@@ -121,6 +121,7 @@
 
       methods: {
         ...mapActions('admin',['ActionLista']),
+         ...mapActions('auth',['ActionLogout']),
        async onOptionsChanged(options, page0=false) {
         let pagina = !page0 ? this.options.page : 1
        await this.ActionLista({id:'1',page:pagina,search:this.search});
@@ -135,6 +136,15 @@
       
         location.href = `https://curriculos.mobemaodeobra.com.br/public/curriculo/imprimir/${item.user_id}`;
       },
+      async sair(){
+        try{ 
+          await this.ActionLogout('')
+          console.log('ok')
+           this.$router.push({name:'login'});
+        } catch (err){
+          console.log('erro');
+        }
+      }
     },
   }
 </script>

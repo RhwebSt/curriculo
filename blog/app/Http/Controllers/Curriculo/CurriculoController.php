@@ -70,9 +70,9 @@ class CurriculoController extends Controller
     public function store(Validacao $request)
     {
         $dados = $request->all();
-    
+        $user = $this->user->cadastro($dados);
         try {
-            $user = $this->user->cadastro($dados);
+           
             $dados['user_id'] = $user['id'];
             $pessoal = $this->pessoal->cadastro($dados);
             $dados['pessoal_id'] = $pessoal['id'];

@@ -21,4 +21,10 @@ export default[
         name: 'novaSenha', 
         component: () => import(/* webpackChunkName: "cadastrar" */ './views/novaSenha.vue')
     },
+
+    {
+        path: '*',
+        name: 'error', 
+        component: () => import(/* webpackChunkName: "cadastrar" */ './views/erro.vue')
+    },
 ]

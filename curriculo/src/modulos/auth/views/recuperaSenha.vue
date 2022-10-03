@@ -1,12 +1,16 @@
 <template>
 
     <div class="bg-gradient-to-r from-gray-800 to-blue-800 flex justify-center flex-column w-full h-full justify-items-center">
+    <v-alert type="success" v-if= "msg.status == 200">
+      {{msg.bodyText}}
+    </v-alert>
            <div class="backdrop-sepia-0 bg-white/20 w-11/12 lg:w-5/6 xl:w-2/4 self-center rounded-2xl p-7 shadow-indigo-600/50 shadow-2xl">
             <v-form
               ref="form"
               v-model="valid"
               lazy-validation
               @submit.prevent="submit()"
+              id="form"
               class="flex flex-column justify-center self-center content-center"
             >
                     <img class="m-4 p-2 w-96 self-center" src="/img/logoMobeBranca.png" alt="" srcset="">
@@ -20,15 +24,16 @@
                       v-model="email"
                       :rules="emailRules"
                       label="E-mail"
+                      name="email"
                       class="rounded-lg w-11/12 sm:w-5/6 m-4 self-center shadow-2xl bg-gray-200 shadow-indigo-500/50 pt-4 pb-2 px-2 border-slate-50"
                       required
                       prepend-icon="mdi-email "
                     ></v-text-field>
 
                     <div class="lg:flex  sm:justify-space-between mt-6 w-4/6 self-center">
-                        <button type="submit" @click="rotaVoltar" class="m-1 md:m-4 bg-blue-500 shadow-lg shadow-blue-500/40 hover:bg-blue-700 p-3 rounded-full text-white w-full self-center hover:translate-y-0.5 ring-1 ring-blue-500 hover:outline hover:outline-offset-4 outline-blue-500">Voltar</button>
+                        <button  @click="rotaVoltar" class="m-1 md:m-4 bg-blue-500 shadow-lg shadow-blue-500/40 hover:bg-blue-700 p-3 rounded-full text-white w-full self-center hover:translate-y-0.5 ring-1 ring-blue-500 hover:outline hover:outline-offset-4 outline-blue-500">Voltar</button>
     
-                        <button type="submit" @click='rotaNovaSenha' class="m-1 md:m-4 mt-4  bg-green-500 shadow-lg shadow-green-500/40 hover:bg-green-700 p-3 rounded-full hover:translate-y-0.5  text-white w-full self-center ring-1 ring-green-500 hover:outline hover:outline-offset-4 outline-green-500">Próximo</button>
+                        <button type="submit"  class="m-1 md:m-4 mt-4  bg-green-500 shadow-lg shadow-green-500/40 hover:bg-green-700 p-3 rounded-full hover:translate-y-0.5  text-white w-full self-center ring-1 ring-green-500 hover:outline hover:outline-offset-4 outline-green-500">Próximo</button>
                     </div>
                 </v-form>
            </div> 
@@ -37,7 +42,7 @@
     </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import {mapActions,mapState} from 'vuex'
       export default {
         data: () => ({
             email: '',
@@ -49,7 +54,11 @@
             
             
         }),
+        computed:{
+        ...mapState('auth',['msg']) 
+        },
         methods: {
+            ...mapActions('auth',['ActionRecuperaSenha']),
             rotaVoltar(){
                 this.$router.push({name:'login'})
             },
@@ -58,8 +67,15 @@
                 this.$router.push({name:'novaSenha'})
             },
 
-            submit(){
-                console.log('ok')
+           async submit(){
+                let form = document.getElementById('form');
+                form = new FormData(form);
+                try{
+                    await this.ActionRecuperaSenha(form);
+                    console.log(this.msg);
+                }catch(err){
+
+                }
             }
         }
       }

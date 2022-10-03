@@ -7,6 +7,7 @@
           v-model="valid"
           lazy-validation
           @submit.prevent="submit()"
+          id="login"
           class="flex flex-column justify-center self-center content-center"
         >
                 <img class="m-4 p-2 w-96 self-center" src="/img/logoMobeBranca.png" alt="" srcset="">
@@ -15,6 +16,7 @@
                   v-model="email"
                   :rules="emailRules"
                   label="E-mail"
+                  name='email'
                   prepend-icon="mdi-email "
                   class="rounded-lg w-11/12 sm:w-5/6 m-4 self-center shadow-2xl bg-gray-200 shadow-indigo-500/50 pt-4 pb-2 px-2 border-slate-50"
                   required
@@ -24,6 +26,7 @@
                 class="rounded-lg w-11/12 sm:w-5/6 m-4 self-center shadow-2xl bg-gray-200 shadow-indigo-500/50 pt-4 pb-2 px-2 border-slate-50"
                 v-model="password"
                 :rules="passwordRules"
+                name='password'
                 prepend-icon="mdi-lock"
                 required></v-text-field>
                 <a href="#" @click="rotaEsqueceuSenha" class="self-center text-start text-lg text-white hover:underline decoration-1 w-11/12 sm:w-5/6">Esqueceu a senha?</a>
@@ -80,11 +83,12 @@ import {mapActions} from 'vuex'
         this.$router.push({name:'recuperaSenha'})
       },
 
-      async submit(){
+      async submit(){ 
         try{
-          
-          await this.ActionLogin({password:'123456',email:'ljrri66@gmail.com'})
-          // this.$router.push({name:'home'})
+          let login = document.getElementById('login');
+          var formData = new FormData(login);
+          await this.ActionLogin(formData)
+          this.$router.push({name:'admin'})
         } catch (err){
           console.log('erro');
         }

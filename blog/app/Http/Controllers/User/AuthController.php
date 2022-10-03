@@ -21,7 +21,7 @@ class AuthController extends Controller
         $credentials = $request->only(['email', 'password']);
 
         if (!$token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Este usuario não existe ou não esta cadastrado.'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -37,7 +37,7 @@ class AuthController extends Controller
     public function esquecirsenha(Senha $request)
     {
         $dados = $request->all();
-        try {
+        
             $dados['password'] = rand(100000, 999999);
             $user = $this->user->where('email',$dados['email'])->first();
             $this->user->where('id', $user->id)
@@ -46,7 +46,7 @@ class AuthController extends Controller
             ]);
             $user->notify(new EsquecirSenha($user,$dados['password']));
             return response()->json('Sua senha foi alterada, verifique seu email.');
-            
+            try {
         } catch (\Throwable $th) {
             return response()->json('Não foi porssivél altera sua senha.',401);
         }

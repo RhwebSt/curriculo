@@ -73,27 +73,46 @@
         </ul>
       </div>
 
+     
       <div class="flex justify-center flex-column mt-44 bg-blue-900 border-top-header shadow-md">
         <h3 class="self-center text-xl md:text-3xl font-quemsomos underline underline-offset-8 decoration-indigo-500 decoration-4 text-gray-50 mt-24">Orçamentos</h3>
         <p class="self-center w-4/5 lg:w-2/4 text-justify mt-10 text-base md:text-2xl leading-relaxed shadow-2xl p-5 rounded-2xl text-gray-50">Você está precisando de colaboradores para sua empresa envie-nos um pedido de orçamento com nome, telefone e descrição do serviço pelo formulário abaixo ou pelo nosso email.</p>
         <p class="self-center w-4/5 lg:w-2/4 text-center text-base md:text-2xl leading-relaxed text-gray-50 mt-3 mb-3">comercial@mobemaodeobra.com.br</p>
+         <v-form
+      ref="form"
+      v-model="valid"
+      lazy-validation
+      @submit.prevent="submit()"
+      id="form"
+    >
         <v-text-field 
+         v-model="nome"
+         :rules="rulesNome" 
+         name="nome"
         class="w-4/5 lg:w-2/4 self-center rounded-lg text-white pt-4 pb-2 px-2 bg-gray-50 shadow-2xl"
         label="Nome/Empresa"></v-text-field>
         <v-text-field 
+         v-model="telefone"
+         :rules="telefoneRules" 
+         name="telefone"
         class="w-4/5 lg:w-2/4 self-center rounded-lg mt-6 text-white pt-4 pb-2 px-2 bg-gray-50 shadow-2xl"
         label="Telefone"></v-text-field>
         <v-text-field 
+        v-model="email"
+        :rules="emailRules" 
+        name="email"
         class="w-4/5 lg:w-2/4 self-center rounded-lg mt-6 text-white pt-4 pb-2 px-2 bg-gray-50 shadow-2xl"
         label="Email"></v-text-field>
         <v-textarea
+         v-model="servico"
+         :rules="servicoRules" 
           solo
-          name="input-7-4"
+          name="servico"
           label="Descrição do serviço"
           class="w-4/5 lg:w-2/4 self-center mt-6 text-white pt-4 pb-2 px-2"
         ></v-textarea>
-        <button class="self-center bg-indigo-600 p-3 mt-6 w-3/4 lg:w-1/4 rounded-xl text-gray-100 shadow-2xl hover:bg-indigo-500 hover:shadow-lg hover:shadow-blue-500/50 hover:scale-105 ease-in-out duration-300">Enviar</button>
-
+        <button type="submit" class="self-center bg-indigo-600 p-3 mt-6 w-3/4 lg:w-1/4 rounded-xl text-gray-100 shadow-2xl hover:bg-indigo-500 hover:shadow-lg hover:shadow-blue-500/50 hover:scale-105 ease-in-out duration-300">Enviar</button>
+ </v-form>
         <footer class="self-center w-90 text-justify mt-10 text-base leading-relaxed p-5 text-gray-50 font-footer">Todos os direitos reservados - Mobe 2022.</footer>
       </div>
 
@@ -101,11 +120,47 @@
 
 </template>
 <script>
-    // import {mapActions} from 'vuex'
+    import {mapActions,mapState} from 'vuex'
     export default {
       data: () => ({
-        
-      })
+         valid: true,
+          nome: '',
+          rulesNome: [
+            v => !!v || 'Campo Obrigatório',
+            v => v.length <= 40 || 'O Campo não pode conter mais de 40 caracteres'
+          ],
+          telefone: '',
+          telefoneRules: [
+            v => !!v || 'Campo Obrigatório',
+          ],
+          email: '',
+          emailRules: [
+            v => !!v || 'Campo Obrigatório',
+            v => /.+@.+\..+/.test(v) || 'E-mail tem que ser válido',
+            v => v.length <= 50 || 'O Campo não pode conter mais de 50 caracteres'
+          ],
+          servico: '',
+          servicoRules: [
+            v => !!v || 'Campo Obrigatório',
+            v => v.length <= 200 || 'O Campo não pode conter mais de 200 caracteres',
+          ],
+      }),
+       computed:{
+        ...mapState('home',['msg']) 
+        },
+      methods:{
+         ...mapActions('home',['ActionContrato']),
+         async submit(){
+         
+          let form = document.getElementById('form')
+          form = new FormData(form)
+          await this.ActionContrato(form)
+           try{ 
+          } catch (err){
+            console.log(err)
+          }
+         }
+      }
     }
 </script>
 

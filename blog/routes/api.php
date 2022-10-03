@@ -19,11 +19,13 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::group(['middleware'=>['apiJwt']],function(){
     Route::get('user','User\\UserController@index');
+    Route::get('curriculo/lista','Curriculo\\CurriculoController@index');
+    Route::get('user/logout', 'User\\AuthController@logout');
     
 });
-Route::get('curriculo/lista','Curriculo\\CurriculoController@index');
 Route::post('curriculo/cadastro','Curriculo\\CurriculoController@store');
 Route::post('user/login', 'User\\AuthController@login');
+
 Route::post('login/esquecir/senha', 'User\\AuthController@esquecirsenha');
 Route::post('contrata/mobe','Contrata\\ContrataController@store');
 
