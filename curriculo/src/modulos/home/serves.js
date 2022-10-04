@@ -1,6 +1,6 @@
 export default{
     contrato:{
         method:'post',
-        url:'login/esquecir/senha'
-    }
+        url:'contrata/mobe'
+    },
 }

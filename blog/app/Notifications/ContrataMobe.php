@@ -41,8 +41,13 @@ class ContrataMobe extends Notification
      */
     public function toMail($notifiable)
     {
-        
-        return (new MailMessage)->view('teste',['nome' => 'jose luis']);
+        $dados = [
+            'nome'=> $this->dados['nome'],
+            'telefone'=> $this->dados['telefone'],
+            'email'=> $this->dados['email'],
+            'servico'=>$this->dados['servico']
+        ];
+        return (new MailMessage)->view('contrator',$dados);
                     // ->from($this->dados['email'], 'ruambaia065@gmail.com')
                     // ->line('The introduction to the notification.')
                     // ->action('Notification Action', url('/'))

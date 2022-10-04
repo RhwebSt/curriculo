@@ -18,10 +18,12 @@ class ContrataController extends Controller
     public function store(Validacao $request)
     {
         $dados = $request->all();
-        try {
-            Notification::route('mail', 'ruambaia065@gmail.com')
+        
+       
+            Notification::route('mail', 'comercial@mobemaodeobra.com.br')
             ->notify(new ContrataMobe($dados));
             return response()->json('Menssagem enviada com sucesso.');
+            try {
         } catch (\Throwable $th) {
              return response()->json('Não foi porssivél envia sua mensagem.',401);
         }

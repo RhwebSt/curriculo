@@ -1,25 +1,23 @@
 import serves from "@/http";
-import { data } from "autoprefixer";
 import * as storage from "../storage";
 import * as types from "./mutations-type";
 export const ActionLogin = ({dispatch},payload)=>{
     return serves.auth.login(payload).then(res => {
         dispatch('ActionSetToken',res.data.access_token)
-    }).catch(res => {
-        if (res.status == 401) {
+    }).catch(err => {
+        if (err.status == 422) {
             dispatch('ActionSignOut')
+            dispatch('ActionSetMsg',res)
         }
       })
 }
 export const ActionLogout = ({dispatch},payload)=>{
     return serves.auth.logout(payload).then(res => {
-        console.log(res);
         dispatch('ActionSignOut')
     })
 }
 export const ActionRecuperaSenha = ({dispatch},payload)=>{
     return serves.auth.recupera(payload).then(res=>{
-        console.log(res);
         dispatch('ActionSetMsg',res)
     })
 }

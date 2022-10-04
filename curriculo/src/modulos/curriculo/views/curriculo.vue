@@ -685,6 +685,7 @@
 
           var reader = new FileReader();
            reader.onloadend = function() {
+            console.log(reader.result)
              document.getElementById('foto').value = reader.result;
            }
            reader.readAsDataURL(file)

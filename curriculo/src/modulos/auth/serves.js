@@ -14,5 +14,9 @@ export default{
     logout:{
         method:'get',
         url:'user/logout'
-    }
+    },
+    contrato:{
+        method:'post',
+        url:'contrata/mobe'
+    },
 }

@@ -1,8 +1,8 @@
 import serves from "@/http";
-import * as storage from "../storage";
+// import * as storage from "../storage";
 import * as types from "./mutations-type";
 export const ActionContrato = ({dispatch},payload)=>{
-    return serves.home.contrato(payload).then(res=>{
+    return serves.auth.contrato(payload).then(res=>{
         dispatch('ActionSetMsg',res)
     }).catch(res=>{
         dispatch('ActionSetMsg',res)
