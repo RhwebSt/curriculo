@@ -17,7 +17,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="Pesquisa"
             :search="search"
             single-line
             hide-details
@@ -28,7 +28,8 @@
           :items="all_items"
           :server-items-length="totalPages"
           fixed-header
-          :items-per-page="10"
+          hide-default-footer
+          :items-per-page="item_paget"
           :page="page"
           :options.sync="options"
           @update:options="onOptionsChanged"
@@ -90,8 +91,9 @@
         ],
         all_items: [],
         pageSize: 10,
-        totalPages: 0,
-        page: 1,
+        totalPages: 5,
+        item_paget:10,
+        page: 5,
       }
     },
 
@@ -101,11 +103,10 @@
     },
     async mounted() {
       await this.ActionLista({id:'1',page:'',search:''});
-      this.totalPages = this.listatrabalhador.data.count > 10 ? Math.ceil(this.listatrabalhador.data.count / 10) : 1
-      this.page = this.options.page
+      // this.totalPages = this.listatrabalhador.data.count > 10 ? Math.ceil(this.listatrabalhador.data.count / 10) : 1
+      // this.page = this.options.page
       this.all_items = [];
       for (let i = 0; i < this.listatrabalhador.data.length; i++) {
-        
         this.all_items.push( this.listatrabalhador.data[i])
       }
 
@@ -125,12 +126,16 @@
        async onOptionsChanged(options, page0=false) {
         let pagina = !page0 ? this.options.page : 1
        await this.ActionLista({id:'1',page:pagina,search:this.search});
-       this.totalPages = this.listatrabalhador.data.count > 10 ? Math.ceil(this.listatrabalhador.data.count / 10) : 1
-        this.page = !page0 ? this.options.page : 1
+      //  this.totalPages = this.listatrabalhador.data.count > 10 ? Math.ceil(this.listatrabalhador.data.count / 10) : 1
+      //   this.page = !page0 ? this.options.page : 1
         this.all_items = [];
         for (let i = 0; i < this.listatrabalhador.data.length; i++) {
           this.all_items.push( this.listatrabalhador.data[i])
         }
+      },
+      paginacao(page){
+        console.log(page)
+        return page
       },
       imprimir(item){
       
