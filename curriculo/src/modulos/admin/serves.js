@@ -9,6 +9,6 @@ export default{
     },
     listacurriculo:{
         method:'get',
-        url:'curriculo/lista?model_id={id}&page={page}&search={search}'
+        url:'curriculo/lista?start=1&length=1&page={page}&search={search}'
     }
 }

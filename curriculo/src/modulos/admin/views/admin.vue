@@ -46,6 +46,13 @@
         </template>
         
         </v-data-table>
+        <div class="text-center pt-2">
+        <v-pagination
+          v-model="page"
+          :length="1"
+          :total-visible="7"
+        ></v-pagination>
+        </div>
       </v-card>
 
     </div>
