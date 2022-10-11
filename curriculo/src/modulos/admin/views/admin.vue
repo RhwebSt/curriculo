@@ -49,7 +49,7 @@
         <div class="text-center pt-2">
         <v-pagination
           v-model="page"
-          :length="1"
+          :length="Math.ceil(this.listatrabalhador.recordsTotal/this.listatrabalhador.input.length)"
           :total-visible="7"
         ></v-pagination>
         </div>
@@ -100,7 +100,8 @@
         pageSize: 10,
         totalPages: 5,
         item_paget:10,
-        page: 5,
+        page: 1,
+        length:4
       }
     },
 
@@ -109,9 +110,12 @@
         ...mapState('admin',['listatrabalhador']) 
     },
     async mounted() {
-      await this.ActionLista({id:'1',page:'',search:''});
-      // this.totalPages = this.listatrabalhador.data.count > 10 ? Math.ceil(this.listatrabalhador.data.count / 10) : 1
-      // this.page = this.options.page
+    
+      let page = (parseInt(this.options.page) - 1)
+      if(page < 0){
+        page *= -1
+      }
+      await this.ActionLista({length:this.length,page:page,search:''});
       this.all_items = [];
       for (let i = 0; i < this.listatrabalhador.data.length; i++) {
         this.all_items.push( this.listatrabalhador.data[i])
@@ -131,18 +135,19 @@
         ...mapActions('admin',['ActionLista']),
          ...mapActions('auth',['ActionLogout']),
        async onOptionsChanged(options, page0=false) {
-        let pagina = !page0 ? this.options.page : 1
-       await this.ActionLista({id:'1',page:pagina,search:this.search});
+        console.log(options,page0)
+        let page = (parseInt(this.options.page) - 1)
+        if(page < 0){
+          page *= -1
+        }
+       
+       await this.ActionLista({length:this.length,page:page,search:this.search});
       //  this.totalPages = this.listatrabalhador.data.count > 10 ? Math.ceil(this.listatrabalhador.data.count / 10) : 1
       //   this.page = !page0 ? this.options.page : 1
         this.all_items = [];
         for (let i = 0; i < this.listatrabalhador.data.length; i++) {
           this.all_items.push( this.listatrabalhador.data[i])
         }
-      },
-      paginacao(page){
-        console.log(page)
-        return page
       },
       imprimir(item){
       
