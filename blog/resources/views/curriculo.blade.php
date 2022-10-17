@@ -110,8 +110,8 @@
     <div class="perfil">
         <h3 class="title-perfil"> Dados Acadêmicos</h3>
         <div>
-            <p><b>Local:</b> {{strtoupper($user->pessoal[0]->academico[0]->eslocal)}}</p>
-            <p><b>Curso:</b> {{strtoupper($user->pessoal[0]->academico[0]->escurso)}}</p>
+            <p><b>Local:</b> {{strtoupper($user->pessoal[0]->academico[0]->aslocal)}}</p>
+            <p><b>Curso:</b> {{strtoupper($user->pessoal[0]->academico[0]->ascurso)}}</p>
             <p><b>Data inicio:</b> {{ date('d/m/Y',strtotime($user->pessoal[0]->academico[0]->asdatainicio)) }} <b>Data final:</b> {{ date('d/m/Y',strtotime($user->pessoal[0]->academico[0]->asdataconclusao)) }}</p>
         </div>
     </div>
