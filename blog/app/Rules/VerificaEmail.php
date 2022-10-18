@@ -26,7 +26,9 @@ class VerificaEmail implements Rule
      */
     public function passes($attribute, $value)
     {
-        if ($this->user->where('email',$value)->count() < 1) {
+    //    dd($value);
+   
+        if ($this->user->where('email',$value)->count() > 0) {
             return false;
         }
         return true;
@@ -39,6 +41,6 @@ class VerificaEmail implements Rule
      */
     public function message()
     {
-        return 'Este email não esta cadastro.';
+        return 'Este email já esta cadastro.';
     }
 }

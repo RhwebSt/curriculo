@@ -4,12 +4,11 @@ import * as types from "./mutations-type";
 export const ActionLogin = ({dispatch},payload)=>{
     return serves.auth.login(payload).then(res => {
         dispatch('ActionSetToken',res.data.access_token)
+        dispatch('ActionSetMsg',res)
     }).catch(err => {
-        if (err.status == 422) {
-            dispatch('ActionSignOut')
-            dispatch('ActionSetMsg',res)
-        }
-      })
+        dispatch('ActionSignOut')
+        dispatch('ActionSetMsg',err)
+    })
 }
 export const ActionLogout = ({dispatch},payload)=>{
     return serves.auth.logout(payload).then(res => {
@@ -41,7 +40,7 @@ export const ActionSession = ({dispatch})=>{
         try {
             // const {data:{user}} = await serves.auth.session()
             await serves.auth.session().then(res => {
-                console.log(res);
+               
                 dispatch('ActionSetUser',res.data)
             })
            

@@ -112,8 +112,12 @@
     async mounted() {
     
       let page = (parseInt(this.options.page) - 1)
-      if(page < 0){
-        page *= -1
+      if(page){
+          if(page < 0){
+            page *= -1
+          }
+      }else{
+        page = 0;
       }
       await this.ActionLista({length:this.length,page:page,search:''});
       this.all_items = [];

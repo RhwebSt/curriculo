@@ -1,6 +1,26 @@
 <template>
 
 <div class="bg-gradient-to-r from-gray-800 to-blue-800 flex justify-center flex-column w-full h-full justify-items-center">
+ <v-snackbar
+      v-model="alert"
+      color="red accent-2"
+      elevation="24"
+      class="text-lg"
+    >
+      {{ textAlert }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color=""
+          text
+          class="bg-red-800"
+          v-bind="attrs"
+          @click="alert = false"
+        >
+          Fechar
+        </v-btn>
+      </template>
+    </v-snackbar>
        <div class="backdrop-sepia-0 bg-white/20 w-11/12 lg:w-5/6 xl:w-2/4 self-center rounded-2xl p-7 shadow-indigo-600/50 shadow-2xl">
         <v-form
           ref="form"
@@ -75,6 +95,8 @@ import {mapActions,mapState} from 'vuex'
       passwordRules: [
         v => !!v || 'Senha é obrigatória',
       ],
+      alert: false,
+      textAlert: '',
     }),
     // created(){
     //   this.ActionLogin({password:'123456',email:'elielfelipe789@gmail.com'})
@@ -112,9 +134,18 @@ import {mapActions,mapState} from 'vuex'
           let login = document.getElementById('login');
           var formData = new FormData(login);
           await this.ActionLogin(formData)
+          if(this.msg.status == 401){
+            this.alert = true;
+            this.textAlert = this.msg.body.error;
+            this.loading = false
+            return false;
+          }
+          console.log(this.msg)
           this.$router.push({name:'admin'})
         } catch (err){
           this.loading = false
+          this.alert = false;
+          this.textAlert = this.msg.body.error;
         }
       }
     },

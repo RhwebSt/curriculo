@@ -7,6 +7,7 @@
       lazy-validation
       @submit.prevent="submit()"
       id="formCurriculo"
+      
     >
 
     <div class="bg-blue-900 flex justify-between">
@@ -53,7 +54,7 @@
     </v-alert>
 
 
-    <v-stepper v-model="e1" class="m-4 md:m-32  rounded-xl shadow-2xl">
+    <v-stepper v-model="e1" class="m-4 md:m-32   rounded-xl shadow-2xl">
       <v-stepper-header>
         <v-stepper-step
           :complete="e1 > 1"
@@ -682,7 +683,8 @@
         fileChange(e){
           const file = e.target.files[0];
           this.image = URL.createObjectURL(file);
-
+          
+          // this.alert = false;
           var reader = new FileReader();
            reader.onloadend = function() {
             console.log(reader.result)

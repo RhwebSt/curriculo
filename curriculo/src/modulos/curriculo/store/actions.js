@@ -1,13 +1,14 @@
 import serves from "@/http";
 // import * as storage from "../storage";
-// import * as types from "./mutations-type";
+import * as types from "./mutations-type";
 
 export const ActionSendCurriculo = ({dispatch},payload)=>{
     return serves.curriculo.curriculoEnviar(payload).then(res => {
-        console.log(res.status); 
-        dispatch()
+        dispatch('ActionSetMsg',res.data)
     }).catch(res => {
-        console.log(res); 
-        
-      })
+        dispatch('ActionSetMsg',res.data)
+    })
+}
+export const ActionSetMsg = ({commit},payload) =>{
+    commit(types.SET_MSG,payload)
 }

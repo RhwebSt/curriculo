@@ -24,7 +24,7 @@ class Senha extends FormRequest
     public function rules()
     {
         return [
-            'email'=>['required','email',new VerificaEmail]
+            'email'=>['required','email']
         ];
     }
     public function messages()

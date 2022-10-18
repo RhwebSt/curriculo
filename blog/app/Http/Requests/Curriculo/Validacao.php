@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Curriculo;
 
+use App\Rules\VerificaEmail;
 use Illuminate\Foundation\Http\FormRequest;
 
 class Validacao extends FormRequest
@@ -25,11 +26,11 @@ class Validacao extends FormRequest
     {
         return [
             'name' => 'required|max:70|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ ]*$/',
-            'email'=>'required|email',
-            'psnascimento'=>'required|max:10',
-            'pstitulopro' => 'required|max:70|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ ]*$/',
+            'email'=>['required','email',new VerificaEmail],
+            // 'psnascimento'=>'required|max:10',
+            //'pstitulopro' => 'required|max:70|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ ]*$/',
             // 'psfoto'=>'required', 
-            'pssexo'=>'required|max:5|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ ]*$/', 
+            //'pssexo'=>'required|max:5|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ ]*$/', 
             'pstelefone'=>'required|max:16', 
             'escep'=>'required|max:16|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
             'eslogradouro'=>'required|max:50|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
@@ -37,20 +38,20 @@ class Validacao extends FormRequest
             'esbairro'=>'required:max:40|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
             'esmunicipio'=>'required|max:30|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
             'esuf'=>'required|max:2|uf', 
-            'pssobrevoce'=>'required|max:225', 
-            'pscargo'=>'required|max:40', 
-            'psdatainicio'=>'required|date_format:Y-m-d|max:10', 
-            'psdatafinal'=>'required|date_format:Y-m-d|max:10', 
-            'psexperiencia'=>'required|max:255|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
-            'isidioma'=>'required|max:70|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
-            'isnivel'=>'required|max:20|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
-            'isdatainicio'=>'required|date_format:Y-m-d|max:10', 
-            'isdatafinal'=>'required|date_format:Y-m-d|max:10', 
-            'aslocal'=>'required|max:70|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
-            'ascurso'=>'required|max:70|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
-            'asdatainicio'=>'required|date_format:Y-m-d|max:10', 
-            'asdataconclusao'=>'required|date_format:Y-m-d|max:10', 
-            'hshabilidade'=>'required|max:255|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
+            // 'pssobrevoce'=>'required|max:225', 
+            // 'pscargo'=>'required|max:40', 
+            // 'psdatainicio'=>'required|date_format:Y-m-d|max:10', 
+            // 'psdatafinal'=>'required|date_format:Y-m-d|max:10', 
+            // 'psexperiencia'=>'required|max:255|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
+            // 'isidioma'=>'required|max:70|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
+            // 'isnivel'=>'required|max:20|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
+            // 'isdatainicio'=>'required|date_format:Y-m-d|max:10', 
+            // 'isdatafinal'=>'required|date_format:Y-m-d|max:10', 
+            // 'aslocal'=>'required|max:70|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
+            // 'ascurso'=>'required|max:70|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
+            // 'asdatainicio'=>'required|date_format:Y-m-d|max:10', 
+            // 'asdataconclusao'=>'required|date_format:Y-m-d|max:10', 
+            // 'hshabilidade'=>'required|max:255|regex:/^[A-ZÀÁÂÃÇÉÈÊËÎÍÏÔÓÕÛÙÚÜŸÑÆŒa-zàáâãçéèêëîíïôóõûùúüÿñæœ 0-9_\-().]*$/', 
 
         ];
     }
@@ -65,6 +66,7 @@ class Validacao extends FormRequest
             'pstitulopro.regex'=>'O campo nome social tem um formato inválido.',
             'email.required'=>'O campo não pode estar vazio.',
             'email.email'=>'Este não e um email valido.',
+            'email.unique'=>'Este email já está cadastrado!',
             'psnascimento.required'=>'O campo não pode estar vazio.',
             'psnascimento.max'=>'O campo não pode conter mais de 10 caracteres.',
             'psfoto.required'=>'O campo não pode estar vazio.', 

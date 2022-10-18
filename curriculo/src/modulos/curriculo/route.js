@@ -2,7 +2,7 @@ export default[
     {
         path: '/curriculo',
         name: 'curriculo', 
-        component: () => import(/* webpackChunkName: "Login" */ './views/curriculo.vue')
+        component: () => import(/* webpackChunkName: "Login" */ './views/curriculos.vue')
     },
     
 ]

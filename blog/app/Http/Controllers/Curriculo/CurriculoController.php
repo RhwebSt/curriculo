@@ -36,10 +36,11 @@ class CurriculoController extends Controller
     public function index()
     {
         $search = request('search');
+       
         $user =  $this->user
         ->join('pessoals', 'users.id', '=', 'pessoals.user_id')
         ->join('enderecos', 'pessoals.id', '=', 'enderecos.pessoal_id')
-        ->select('users.name','pessoals.user_id','pessoals.psnascimento','pessoals.pssexo','pessoals.pstelefone','enderecos.*')
+        ->select('users.name','pessoals.user_id','pessoals.psnascimento','pessoals.pstelefone','enderecos.*')
         ->where('users.name','like','%'.$search.'%')
         ->orWhere('pessoals.psnascimento','like','%'.$search.'%')
         ->orWhere('pessoals.pstelefone','like','%'.$search.'%')
@@ -47,6 +48,8 @@ class CurriculoController extends Controller
         ->orWhere('enderecos.esestado','like','%'.$search.'%')
         ->orWhere('enderecos.esmunicipio','like','%'.$search.'%')
         ->orderBy('created_at', 'desc');
+        // ->get();
+        // return response()->json($user);
         return DataTables::of($user)
         ->make(true);
     }
@@ -80,9 +83,10 @@ class CurriculoController extends Controller
             $academico = $this->academico->cadastro($dados);
             $dados['academico_id'] = $academico['id'];
             $this->profissional->cadastro($dados);
-            $this->local->cadastro($dados);
-            $this->habilidade->cadastro($dados);
+            // $this->local->cadastro($dados);
+            // $this->habilidade->cadastro($dados);
             return response()->json('Cadastro realizado com sucesso');
+           
         } catch (\Throwable $th) {
             $this->user->where('id',$user['id'])->delete();
             return response()->json('Não foi possível realizar o cadastro.',401);
@@ -99,11 +103,11 @@ class CurriculoController extends Controller
     public function show($id)
     {
         $user =  $this->user->where('id',$id)
-        ->with(['pessoal','pessoal.endereco','pessoal.academico','pessoal.academico.local','pessoal.academico.profissional','pessoal.academico.habilidade'])
+        ->with('pessoal')
         ->first();
-        // dd($user);
-        $pdf = PDF::loadView('curriculo',compact('user'));
-        return $pdf->setPaper('a4')->stream('curriculo_'.$user->name.'.pdf');
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: inline;');
+        echo file_get_contents($user->pessoal[0]->psfoto);
     }
 
     /**

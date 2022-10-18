@@ -5,5 +5,8 @@ export default{
     },
     [types.SET_TOKEN](state,payload){
         state.token = payload
+    },
+    [types.SET_MSG](state,payload){
+        state.msg = payload
     }
 }
