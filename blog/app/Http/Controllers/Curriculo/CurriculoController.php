@@ -40,7 +40,7 @@ class CurriculoController extends Controller
         $user =  $this->user
         ->join('pessoals', 'users.id', '=', 'pessoals.user_id')
         ->join('enderecos', 'pessoals.id', '=', 'enderecos.pessoal_id')
-        ->select('users.name','pessoals.user_id','pessoals.psnascimento','pessoals.pstelefone','enderecos.*')
+        ->select('users.name','pessoals.user_id','pessoals.pssexo','pessoals.pstitulopro','pessoals.psnascimento','pessoals.pstelefone','enderecos.*')
         ->where('users.name','like','%'.$search.'%')
         ->orWhere('pessoals.psnascimento','like','%'.$search.'%')
         ->orWhere('pessoals.pstelefone','like','%'.$search.'%')
