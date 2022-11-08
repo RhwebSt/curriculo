@@ -65,11 +65,23 @@ export const ActionLista = ({dispatch},payload)=>{
         }
     })
 }
+export const ActionVale = ({dispatch},payload)=>{
+    return serves.trabalhador.vale(payload).then(res => {
+        dispatch('ActionSetMsg',res)
+        console.log(res);
+    }).catch(res => {
+        console.log(res);
+        dispatch('ActionSetMsg',res)
+    })
+}
 export const ActionSetLista = ({commit},payload) =>{
     commit(types.SET_TRABALHADOR_LISTA,payload)
 }
-export const ActionSignOut = ({dispatch})=>{
-    storage.setHeaderToken('');
-    storage.deleteLocalToken();
-    dispatch('ActionSetToken','');
+export const ActionSetMsg = ({commit},payload) =>{
+    commit(types.SET_TRABALHADOR_MSG,payload)
 }
+// export const ActionSignOut = ({dispatch})=>{
+//     storage.setHeaderToken('');
+//     storage.deleteLocalToken();
+//     dispatch('ActionSetToken','');
+// }

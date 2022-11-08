@@ -1,4 +1,5 @@
 export default{
     listatrabalhador:'',
-    editartrabalhador:{}
+    editartrabalhador:{},
+    msg:'',
 }

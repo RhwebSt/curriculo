@@ -5,5 +5,8 @@ export default{
     },
     [types.SET_TRABALHADOR_EDITAR](state,payload){
         state.editartrabalhador = payload
+    },
+    [types.SET_TRABALHADOR_MSG](state,payload){
+        state.msg = payload
     }
 }

@@ -14,7 +14,8 @@ export default async (to, from, next) => {
             next({name:'trabalhador'})
         }
     }
-    if (to.name === 'trabalhador' && store.getters['auth/hasToken'] === false) {
+    if (to.name === 'trabalhador' && store.getters['auth/hasToken'] === false ||
+    to.name === 'vale' && store.getters['auth/hasToken'] === false) {
         next({name:'login'})
     }
     next()
