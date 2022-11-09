@@ -22,12 +22,14 @@
       label="Digite seu cpf"
       required
       name="cpf"
+    v-maska="'###.###.###-##'"
     ></v-text-field>
 
     <v-text-field
       v-model="valor"
       :rules="valorRules"
       label="Valor do valer"
+      v-maska="'###,##'"
       required
       name="valor"
     ></v-text-field>
@@ -112,7 +114,7 @@ import HeaderApp from'./header-app.vue'
           let vale = document.getElementById('vale');
           var formData = new FormData(vale);
           await this.ActionVale(formData)
-          console.log(this.msg);
+         
           if(this.msg.status == 200){
             this.snackbar = true;
             this.text = this.msg.body;
@@ -120,9 +122,16 @@ import HeaderApp from'./header-app.vue'
             this.icon = 'mdi-cash-sync';
             return false;
           }
-          if(this.msg.status == 422 || this.msg.status == 401){
+          if(this.msg.status == 422){
             this.snackbar = true;
             this.text = this.msg.body.errors.cpf[0];
+            this.cor = 'red accent-2';
+            this.icon = 'mdi-cash-remove';
+            return false;
+          }
+          if(this.msg.status == 401){
+             this.snackbar = true;
+            this.text = this.msg.body;
             this.cor = 'red accent-2';
             this.icon = 'mdi-cash-remove';
             return false;
