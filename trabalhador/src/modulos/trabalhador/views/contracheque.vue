@@ -114,7 +114,6 @@
         ...mapState('auth',['user']) 
     },
     async mounted() {
-    
       let page = (parseInt(this.options.page) - 1)
       if(page){
           if(page < 0){

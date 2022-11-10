@@ -17,20 +17,32 @@
 
       
       
-      <v-badge
-       
-        bottom
-        color="green darken-3"
-        dot
-        offset-x="12"
-        offset-y="28"
+      
+     
+     <v-badge
+       v-if="notificacao"
+      color="green darken-3"
+       avatar
+        
+        overlap
+        offset-x="18"
+        offset-y="20"
       >
-        <v-avatar size="30">
-           <v-icon>mdi-bell</v-icon>
+        <template v-slot:badge>
+          <v-avatar size="10"  >
+           1
+          </v-avatar>
+          
+        </template>
+
+        <v-avatar size="40">
+         <v-icon>mdi-bell</v-icon>
         </v-avatar>
       </v-badge>
-     
-     
+       <v-avatar size="40" v-else>
+         <v-icon>mdi-bell</v-icon>
+        </v-avatar>
+      
 
      
     </v-app-bar>
@@ -101,11 +113,25 @@ import { mapState, mapActions} from 'vuex'
     data () {
       return {
         drawer: null,
+        notificacao:false
       }
     },
    
     computed:{
         ...mapState('auth',['user']) 
+    },
+    mounted(){
+       window.Echo.private('App.User.'+this.user.trabalhador_id)
+        .listen('Vales',(e)=>{
+          console.log(e)
+          this.notificacao = true
+        })
+        window.Echo.channel('channel-vale')
+        .listen('Vales',(e)=>{
+          console.log(e)
+          this.notificacao = true
+        })
+       
     },
     methods:{
         ...mapActions('auth',['ActionLogout']),

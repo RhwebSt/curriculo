@@ -140,6 +140,12 @@ import {mapActions,mapState} from 'vuex'
             this.loading = false
             return false;
           }
+           if(this.msg.status == 0){
+            this.alert = true;
+            this.textAlert = 'Não foi porssivél fazer o login. Verifique sua internet.';
+            this.loading = false
+            return false;
+           }
           console.log(this.msg)
           this.$router.push({name:'trabalhador'})
         } catch (err){
