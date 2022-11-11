@@ -8,5 +8,8 @@ export default{
     },
     [types.SET_TRABALHADOR_MSG](state,payload){
         state.msg = payload
+    },
+    [types.SET_TRABALHADOR_NOTIFICACAO](state,payload){
+        state.notificaticao = payload
     }
 }

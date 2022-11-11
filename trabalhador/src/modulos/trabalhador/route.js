@@ -9,5 +9,9 @@ export default[
         name: 'vale', 
         component: () => import(/* webpackChunkName: "Login" */ './views/vale.vue')
     },
-    
+    {
+        path: '/notificacao',
+        name: 'notificacao', 
+        component: () => import(/* webpackChunkName: "Login" */ './views/notificacao.vue')
+    },
 ]

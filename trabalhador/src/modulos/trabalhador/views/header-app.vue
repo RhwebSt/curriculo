@@ -18,12 +18,12 @@
       
       
       
-     
+     <router-link to="/notificacao" v-if="notificacao">
      <v-badge
-       v-if="notificacao"
+       
       color="green darken-3"
        avatar
-        
+        to="/notificacao"
         overlap
         offset-x="18"
         offset-y="20"
@@ -39,9 +39,14 @@
          <v-icon>mdi-bell</v-icon>
         </v-avatar>
       </v-badge>
-       <v-avatar size="40" v-else>
+      </router-link>
+      <router-link to="/notificacao" v-else>
+       <v-avatar size="40" >
+       
          <v-icon>mdi-bell</v-icon>
+         
         </v-avatar>
+       </router-link>
       
 
      

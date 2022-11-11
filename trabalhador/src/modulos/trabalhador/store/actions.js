@@ -74,6 +74,18 @@ export const ActionVale = ({dispatch},payload)=>{
         dispatch('ActionSetMsg',res)
     })
 }
+export const ActionNotificacaoNaolida = ({dispatch},payload)=>{
+    return serves.trabalhador.noficacaonaolida(payload).then(res => {
+        dispatch('ActionSetNotificacao',res)
+        console.log(res);
+    }).catch(res => {
+        console.log(res);
+        dispatch('ActionSetNotificacao',res)
+    })
+}
+export const ActionSetNotificacao = ({commit},payload) =>{
+    commit(types.SET_TRABALHADOR_NOTIFICACAO,payload)
+}
 export const ActionSetLista = ({commit},payload) =>{
     commit(types.SET_TRABALHADOR_LISTA,payload)
 }

@@ -6,5 +6,9 @@ export default{
     vale:{
         method:'post',
         url:'vale/cadastra'
+    },
+    noficacaonaolida:{
+        method:'get',
+        url:'notificacao/lista{/id}'
     }
 }

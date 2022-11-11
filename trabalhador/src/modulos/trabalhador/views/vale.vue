@@ -39,6 +39,7 @@
    <input type="hidden" value="2 - Segunda"  name="quinzena"/>
    <input type="hidden"  name="competencia"/>
     <input type="hidden" value='0,00' name="quantidade"/>
+    <input type="hidden" value='Analise' name="status"/>
     <v-btn
     block
     type="submit"
