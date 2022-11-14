@@ -11,12 +11,14 @@ export default async (to, from, next) => {
         }
     }else{
         if (to.name === 'login' && store.getters['auth/hasToken'] === true || to.name === 'recuperaSenha' && store.getters['auth/hasToken'] === true) {
+           
             next({name:'trabalhador'})
         }
     }
     if (to.name === 'trabalhador' && store.getters['auth/hasToken'] === false ||
     to.name === 'vale' && store.getters['auth/hasToken'] === false 
     || to.name === 'notificacao' && store.getters['auth/hasToken'] === false) {
+        await store.dispatch('auth/ActionSessionTrabalhador')
         next({name:'login'})
     }
     next()

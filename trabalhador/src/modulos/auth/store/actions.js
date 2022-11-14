@@ -26,11 +26,13 @@ export const ActionCheckToken = ({dispatch, state})=>{
         return Promise.resolve.apply(state.token)
     }
     const token = storage.getLocalToken();
-    
+   
     if (!token) {
         return Promise.reject(new Error('Token Inválido'))
     }
+   
     dispatch('ActionSetToken',token)
+    
     return dispatch('ActionSession')
 }
 export const ActionSession = ({dispatch})=>{
@@ -49,6 +51,13 @@ export const ActionSession = ({dispatch})=>{
         } catch (error) {
             reject(error)
         }
+    })
+}
+export const ActionSessionTrabalhador = ({dispatch})=>{
+    return  serves.auth.session().then(res => {
+        dispatch('ActionSetUser',res.data)
+    }).catch(err => {
+        dispatch('ActionSetUser',err)
     })
 }
 export const ActionSetUser = ({commit},payload) =>{

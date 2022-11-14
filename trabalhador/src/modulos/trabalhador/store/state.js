@@ -2,5 +2,6 @@ export default{
     listatrabalhador:'',
     editartrabalhador:{},
     msg:'',
-    notificaticao:''
+    notificaticao:'',
+    quantnotificaticao:''
 }

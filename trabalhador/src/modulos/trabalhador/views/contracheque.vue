@@ -1,6 +1,6 @@
 <template>
 <v-sheet
-          
+           
           class="overflow-hidden"
           style="position: relative;"
         >
@@ -157,7 +157,7 @@
         }
       },
       imprimir(item){
-        location.href = `http://127.0.0.1:8000/trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
+        location.href = `https://rh.mobemaodeobra.com.br/public/trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
       },
       async sair(){
         try{ 

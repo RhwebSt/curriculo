@@ -7,8 +7,12 @@ export default{
         method:'post',
         url:'vale/cadastra'
     },
-    noficacaonaolida:{
+    noficacaolida:{
         method:'get',
         url:'notificacao/lista{/id}'
+    },
+    noficacaonaolida:{
+        method:'get',
+        url:'notificacao/nao/lista{/id}'
     }
 }

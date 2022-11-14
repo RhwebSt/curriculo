@@ -11,5 +11,8 @@ export default{
     },
     [types.SET_TRABALHADOR_NOTIFICACAO](state,payload){
         state.notificaticao = payload
+    },
+    [types.SET_TRABALHADOR_QUANTNOTIFICACAO](state,payload){
+        state.quantnotificaticao = payload
     }
 }

@@ -74,14 +74,26 @@ export const ActionVale = ({dispatch},payload)=>{
         dispatch('ActionSetMsg',res)
     })
 }
-export const ActionNotificacaoNaolida = ({dispatch},payload)=>{
-    return serves.trabalhador.noficacaonaolida(payload).then(res => {
+export const ActionNotificacaolida = ({dispatch},payload)=>{
+    return serves.trabalhador.noficacaolida(payload).then(res => {
         dispatch('ActionSetNotificacao',res)
         console.log(res);
     }).catch(res => {
         console.log(res);
         dispatch('ActionSetNotificacao',res)
     })
+}
+export const ActionNotificacaoNaolida = ({dispatch},payload)=>{
+    return serves.trabalhador.noficacaonaolida(payload).then(res => {
+        dispatch('ActionSetQuantNotificacao',res)
+        console.log(res);
+    }).catch(res => {
+        console.log(res);
+        dispatch('ActionSetQuantNotificacao',res)
+    })
+}
+export const ActionSetQuantNotificacao = ({commit},payload) =>{
+    commit(types.SET_TRABALHADOR_QUANTNOTIFICACAO,payload)
 }
 export const ActionSetNotificacao = ({commit},payload) =>{
     commit(types.SET_TRABALHADOR_NOTIFICACAO,payload)

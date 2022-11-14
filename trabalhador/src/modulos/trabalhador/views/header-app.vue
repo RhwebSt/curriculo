@@ -18,7 +18,7 @@
       
       
       
-     <router-link to="/notificacao" v-if="notificacao">
+     <router-link to="/notificacao" v-if="quantnotificaticao.body">
      <v-badge
        
       color="green darken-3"
@@ -30,7 +30,7 @@
       >
         <template v-slot:badge>
           <v-avatar size="10"  >
-           1
+           {{quantnotificaticao.body}}
           </v-avatar>
           
         </template>
@@ -57,7 +57,7 @@
             absolute
             temporary
             class="mx-auto"
-    height="455"
+            
           >
             <v-list-item>
               <v-list-item-avatar>
@@ -97,7 +97,7 @@
               </v-list-item>
             </v-list>
             
-            <template v-slot:append>
+            <template >
                 <div class="pa-2">
                     <v-btn block class="indigo white--text" @click="sair()">
                         Sair
@@ -123,23 +123,30 @@ import { mapState, mapActions} from 'vuex'
     },
    
     computed:{
-        ...mapState('auth',['user']) 
+        ...mapState('auth',['user']),
+        ...mapState('trabalhador',['quantnotificaticao']) 
     },
     mounted(){
-       window.Echo.private('App.User.'+this.user.trabalhador_id)
-        .listen('Vales',(e)=>{
-          console.log(e)
-          this.notificacao = true
-        })
-        window.Echo.channel('channel-vale')
-        .listen('Vales',(e)=>{
-          console.log(e)
-          this.notificacao = true
-        })
+      //  window.Echo.private('App.User.'+this.user.trabalhador_id)
+      //   .listen('Vales',(e)=>{
+      //     console.log(e)
+      //     this.notificacao = true
+      //   })
+        // window.Echo.channel('channel-vale')
+        // .listen('Vales',(e)=>{
+        //   this.notificacao = true
+        //   this.ActionNotificacaolida({id:this.user.id})
+        // })
+        // this.ActionNotificacaolida({id:this.user.id})
+        window.setInterval(() => {
+         this.ActionNotificacaoNaolida({id:this.user.id});
+        }, 10000);
        
     },
     methods:{
         ...mapActions('auth',['ActionLogout']),
+        ...mapActions('trabalhador',['ActionNotificacaolida']),
+        ...mapActions('trabalhador',['ActionNotificacaoNaolida']),
         async sair(){
         try{ 
           await this.ActionLogout('')
