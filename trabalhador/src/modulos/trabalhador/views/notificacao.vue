@@ -207,9 +207,9 @@
         },
          mounted(){
             try{ 
-                window.setInterval(() => {
-                    this.ActionNotificacaolida({id:this.user.id});
-                }, 10000);
+                // window.setInterval(() => {
+                //     this.ActionNotificacaolida({id:this.user.id});
+                // }, 10000);
                 this.ActionNotificacaolida({id:this.user.id});
                 // await this.ActionNotificacaoNaolida({id:this.user.id})
             } catch (err){

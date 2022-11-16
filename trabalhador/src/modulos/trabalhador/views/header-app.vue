@@ -18,7 +18,7 @@
       
       
       
-     <router-link to="/notificacao" v-if="quantnotificaticao.body">
+     <router-link to="/notificacao" v-if="quantnotificaticao.body > 0">
      <v-badge
        
       color="green darken-3"
@@ -95,6 +95,17 @@
                   <v-list-item-title>Vale</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
+               <v-list-item
+               to="/atualizarsenha"
+              >
+                <v-list-item-icon>
+                  <v-icon>mdi-lock-question</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>Senha</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
             </v-list>
             
             <template >
@@ -135,7 +146,7 @@ import { mapState, mapActions} from 'vuex'
         // window.Echo.channel('channel-vale')
         // .listen('Vales',(e)=>{
         //   this.notificacao = true
-        //   this.ActionNotificacaolida({id:this.user.id})
+        //   this.ActionNotificacaoNaolida({id:this.user.id});
         // })
         // this.ActionNotificacaolida({id:this.user.id})
         window.setInterval(() => {

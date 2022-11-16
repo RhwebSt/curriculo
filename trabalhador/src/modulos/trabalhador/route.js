@@ -14,4 +14,9 @@ export default[
         name: 'notificacao', 
         component: () => import(/* webpackChunkName: "Login" */ './views/notificacao.vue')
     },
+    {
+        path: '/atualizarsenha',
+        name: 'atualizarsenha', 
+        component: () => import(/* webpackChunkName: "Login" */ './views/novasenha.vue')
+    },
 ]

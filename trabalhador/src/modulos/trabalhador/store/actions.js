@@ -92,6 +92,15 @@ export const ActionNotificacaoNaolida = ({dispatch},payload)=>{
         dispatch('ActionSetQuantNotificacao',res)
     })
 }
+export const ActionAtualizarSenha = ({dispatch},payload)=>{
+    return serves.trabalhador.atualizarsenha(payload).then(res => {
+        dispatch('ActionSetMsg',res)
+        console.log(res);
+    }).catch(res => {
+        console.log(res);
+        dispatch('ActionSetMsg',res)
+    })
+}
 export const ActionSetQuantNotificacao = ({commit},payload) =>{
     commit(types.SET_TRABALHADOR_QUANTNOTIFICACAO,payload)
 }

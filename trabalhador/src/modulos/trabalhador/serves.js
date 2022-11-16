@@ -14,5 +14,9 @@ export default{
     noficacaonaolida:{
         method:'get',
         url:'notificacao/nao/lista{/id}'
+    },
+    atualizarsenha:{
+        method:'post',
+        url:'senha/update'
     }
 }
