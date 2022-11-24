@@ -68,36 +68,36 @@ export const ActionLista = ({dispatch},payload)=>{
 export const ActionVale = ({dispatch},payload)=>{
     return serves.trabalhador.vale(payload).then(res => {
         dispatch('ActionSetMsg',res)
-        console.log(res);
+        
     }).catch(res => {
-        console.log(res);
+        
         dispatch('ActionSetMsg',res)
     })
 }
 export const ActionNotificacaolida = ({dispatch},payload)=>{
     return serves.trabalhador.noficacaolida(payload).then(res => {
         dispatch('ActionSetNotificacao',res)
-        console.log(res);
+        
     }).catch(res => {
-        console.log(res);
+        
         dispatch('ActionSetNotificacao',res)
     })
 }
 export const ActionNotificacaoNaolida = ({dispatch},payload)=>{
     return serves.trabalhador.noficacaonaolida(payload).then(res => {
         dispatch('ActionSetQuantNotificacao',res)
-        console.log(res);
+       
     }).catch(res => {
-        console.log(res);
+       
         dispatch('ActionSetQuantNotificacao',res)
     })
 }
 export const ActionAtualizarSenha = ({dispatch},payload)=>{
     return serves.trabalhador.atualizarsenha(payload).then(res => {
         dispatch('ActionSetMsg',res)
-        console.log(res);
+       
     }).catch(res => {
-        console.log(res);
+       
         dispatch('ActionSetMsg',res)
     })
 }

@@ -7,7 +7,7 @@
   <div >
     <header-app/>
   <v-card
-    class="mx-auto"
+    class="mx-auto box-shadow-none"
     max-width="400"
   >
    
@@ -17,46 +17,71 @@
     </v-card-text>
 
     <v-divider></v-divider>
-
+      <v-tabs>
+          <v-tab v-for="item of anos">
+          <span @click="buscafolhar(item)">  {{ item }} </span>
+          </v-tab>
+         
+      </v-tabs>
     <v-virtual-scroll
       :items="all_items"
       :item-height="50"
       height="300"
+      v-if="all_items.length > 0"
     >
       <template v-slot:default="{ item }">
-        <v-list-item>
+        <v-list-item  @click="imprimir(item)">
           <v-list-item-avatar>
             <v-avatar
               :color="item.color"
               size="56"
               class="white--text"
             >
-              {{ item.initials }}
+            
+            <v-icon>mdi-file</v-icon>
             </v-avatar>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.fullName }}</v-list-item-title>
+            <v-list-item-title> Pagamento do mês <strong> {{ meses(item.fscompetencia)  }}</strong></v-list-item-title>
           </v-list-item-content>
+          
 
           <v-list-item-action>
             <v-btn
-              depressed
-              small
+              class="indigo"
+               x-small
+              fab
+              dark
+             
             >
-              View User
+              
 
               <v-icon
-                color="orange darken-4"
-                right
+               
+                
               >
-                mdi-open-in-new
+               mdi-calendar-month
               </v-icon>
             </v-btn>
           </v-list-item-action>
         </v-list-item>
+        <v-divider></v-divider>
       </template>
     </v-virtual-scroll>
+    <v-container v-else>
+     <v-alert
+      border="right"
+      colored-border
+      type="error"
+      elevation="2"
+      class="mt-5"
+      
+    >
+      Não folha neste periodo.
+    </v-alert>
+    </v-container>
+   
   </v-card>
 
       <v-card class="flex justify-center content-center min-h-screen d-none">
@@ -116,6 +141,7 @@
     data () {
       return {
         search: '',
+        anos:[],
         options: {},
         dados : {
           name:'',
@@ -186,6 +212,14 @@
       }, 
     },
     async mounted() {
+      let datahoje = new Date();
+      for (let i = 0; i < 4; i++) {
+          if(i > 0){
+            this.anos.push(datahoje.getFullYear() - i)
+          }else{
+            this.anos.push(datahoje.getFullYear())
+          }
+      }
       let page = (parseInt(this.options.page) - 1)
       if(page){
           if(page < 0){
@@ -194,7 +228,7 @@
       }else{
         page = 0;
       }
-      await this.ActionLista({id:this.user.trabalhador_id,length:this.length,page:page,search:''});
+      await this.ActionLista({id:this.user.trabalhador_id,length:this.length,page:page,search:'',ano:this.anos[0]});
       this.all_items = [];
       for (let i = 0; i < this.listatrabalhador.data.length; i++) {
         this.all_items.push( this.listatrabalhador.data[i])
@@ -212,6 +246,18 @@
 
       methods: {
         ...mapActions('trabalhador',['ActionLista']),
+      meses(mes){
+        
+        let meses = ["Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        let m = mes.split('/');
+        let resulte = '';
+        meses.forEach((element,index) => {
+          if((index+1) === parseInt(m[0])){
+            resulte = element
+          }
+        });
+        return resulte;
+      },
        genRandomIndex (length) {
         return Math.ceil(Math.random() * (length - 1))
       },
@@ -222,7 +268,7 @@
           page *= -1
         }
        
-       await this.ActionLista({id:this.user.trabalhador_id,length:this.length,page:page,search:this.search});
+       await this.ActionLista({id:this.user.trabalhador_id,length:this.length,page:page,search:this.search,ano:this.anos[0]});
       //  this.totalPages = this.listatrabalhador.data.count > 10 ? Math.ceil(this.listatrabalhador.data.count / 10) : 1
       //   this.page = !page0 ? this.options.page : 1
         this.all_items = [];
@@ -232,6 +278,20 @@
       },
       imprimir(item){
         location.href = `https://rh.mobemaodeobra.com.br/public/trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
+      },
+      async buscafolhar(ano){
+        console.log(ano)
+        await this.ActionLista({id:this.user.trabalhador_id,length:this.length,page:'',search:this.search,ano:ano});
+      //  this.totalPages = this.listatrabalhador.data.count > 10 ? Math.ceil(this.listatrabalhador.data.count / 10) : 1
+      //   this.page = !page0 ? this.options.page : 1
+        if(this.listatrabalhador.data.length > 0){
+          this.all_items = [];
+          for (let i = 0; i < this.listatrabalhador.data.length; i++) {
+            this.all_items.push( this.listatrabalhador.data[i])
+          }
+        }else{
+          this.all_items = [];
+        }
       },
       async sair(){
         try{ 
@@ -268,5 +328,7 @@
      margin-top: 10%;
      
    }
-
+  .box-shadow-none{
+    box-shadow:none !important
+  }
 </style>

@@ -54,7 +54,7 @@
    
     <v-navigation-drawer
             v-model="drawer"
-            absolute
+            fixed
             temporary
             class="mx-auto"
             
@@ -150,8 +150,9 @@ import { mapState, mapActions} from 'vuex'
         // })
         // this.ActionNotificacaolida({id:this.user.id})
         window.setInterval(() => {
-         this.ActionNotificacaoNaolida({id:this.user.id});
+         
         }, 10000);
+        this.ActionNotificacaoNaolida({id:this.user.id});
        
     },
     methods:{
