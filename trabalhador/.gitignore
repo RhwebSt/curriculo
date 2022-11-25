@@ -26,3 +26,13 @@ pnpm-debug.log*
 /mob-curriculo/platforms
 /mob-curriculo/plugins
 /public/cordova.js
+
+# Cordova
+/mobe-trabalhador/platforms
+/mobe-trabalhador/plugins
+/public/cordova.js
+
+# Cordova
+/mobe-trabalhador/platforms
+/mobe-trabalhador/plugins
+/public/cordova.js
