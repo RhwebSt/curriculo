@@ -1,6 +1,6 @@
 {
-  "name": "br.com.mobemaodeobra.app",
-  "displayName": "VueMobeAppTrabalhador",
+  "name": "com.vue.example.app",
+  "displayName": "VueExampleAppName",
   "version": "1.0.0",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
@@ -14,12 +14,22 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "cordova-android": "~10.1.2",
-    "cordova-browser": "~6.0.0"
+    "cordova-browser": "~6.0.0",
+    "cordova-electron": "~3.1.0",
+    "cordova-plugin-badge": "^0.8.8",
+    "cordova-plugin-device": "^2.1.0",
+    "cordova-plugin-local-notification": "github:timkellypa/cordova-plugin-local-notifications"
   },
   "cordova": {
     "platforms": [
       "android",
-      "browser"
-    ]
+      "browser",
+      "electron"
+    ],
+    "plugins": {
+      "cordova-plugin-local-notification": {
+        "ANDROID_SUPPORT_V4_VERSION": "26.+"
+      }
+    }
   }
 }

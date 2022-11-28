@@ -87,6 +87,29 @@
                                         </v-chip>
                                     
                                     </v-alert>
+                                     <v-alert
+                                    border="right"
+                                    colored-border
+                                    type="warning"
+                                    elevation="2"
+                                    v-else-if="value1.fsstatus === 'Fechar'"
+                                    >
+                                   A folhar do mês de {{meses(value1.fscompetencia)}} já esta desponivél para consulta.
+                                    <v-divider
+                                        
+                                    ></v-divider>
+                                   <div class="text-end mt-4">
+                                        <v-btn
+                                        rounded
+                                        color="indigo"
+                                        dark
+                                        @click="imprimir(value1.id)"
+                                        >
+                                        click aqui
+                                        </v-btn>
+                                    </div>
+                                    
+                                    </v-alert>
                             </div>
                         </div>
                         <div v-else>
@@ -203,7 +226,21 @@
                 let novadata = novodados[0].split('-') 
                 novadata = `${novadata[2]}/${novadata[1]}/${novadata[0]}`
                 return novadata
-            }
+            },
+             meses(mes){
+                let meses = ["Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+                let m = mes.split('-');
+                let resulte = '';
+                meses.forEach((element,index) => {
+                if((index+1) === parseInt(m[1])){
+                    resulte = element
+                }
+                });
+                return resulte;
+            },
+            imprimir(folhar_id){
+                location.href = `http://127.0.0.1:8000/trabalhador/recibo/${this.user.trabalhador_id}/${folhar_id}`;
+            },
         },
          mounted(){
             try{ 

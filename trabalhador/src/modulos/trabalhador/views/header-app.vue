@@ -18,7 +18,7 @@
       
       
       
-     <router-link to="/notificacao" v-if="quantnotificaticao.body > 0">
+     <router-link to="/notificacao" v-if="notificacao">
      <v-badge
        
       color="green darken-3"
@@ -30,7 +30,7 @@
       >
         <template v-slot:badge>
           <v-avatar size="10"  >
-           {{quantnotificaticao.body}}
+           {{quant}}
           </v-avatar>
           
         </template>
@@ -129,7 +129,8 @@ import { mapState, mapActions} from 'vuex'
     data () {
       return {
         drawer: null,
-        notificacao:false
+        notificacao:false,
+        quant:0
       }
     },
    
@@ -143,16 +144,31 @@ import { mapState, mapActions} from 'vuex'
       //     console.log(e)
       //     this.notificacao = true
       //   })
-        // window.Echo.channel('channel-vale')
-        // .listen('Vales',(e)=>{
-        //   this.notificacao = true
-        //   this.ActionNotificacaoNaolida({id:this.user.id});
-        // })
+        window.Echo.channel('channel-vale')
+        .listen('Vales',(e)=>{
+          this.notificacao = true
+          console.log(e)
+          // this.ActionNotificacaoNaolida({id:this.user.id});
+        })
+        
+         window.Echo.channel('channel-folhar')
+        .listen('Folha',(e)=>{
+          this.notificacao = true
+          this.quant +=1
+          navigator.notification.alert(
+              'You are the winner!',  // message
+              alertDismissed,         // callback
+              'Game Over',            // title
+              'Done'                  // buttonName
+          );
+          console.log(e)
+          // this.ActionNotificacaoNaolida({id:this.user.id});
+        })
         // this.ActionNotificacaolida({id:this.user.id})
-        window.setInterval(() => {
+        // window.setInterval(() => {
          
-        }, 10000);
-        this.ActionNotificacaoNaolida({id:this.user.id});
+        // }, 10000);
+        // this.ActionNotificacaoNaolida({id:this.user.id});
        
     },
     methods:{

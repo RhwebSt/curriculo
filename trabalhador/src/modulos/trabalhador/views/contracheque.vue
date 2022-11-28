@@ -135,6 +135,7 @@
 <script>
   import HeaderApp from'./header-app.vue'
   import { mapState, mapActions} from 'vuex'
+  import notification from "../../../plugins/notificacao.js"
  
   export default {
     
@@ -213,6 +214,7 @@
     },
     async mounted() {
       let datahoje = new Date();
+   
       for (let i = 0; i < 4; i++) {
           if(i > 0){
             this.anos.push(datahoje.getFullYear() - i)
@@ -277,7 +279,8 @@
         }
       },
       imprimir(item){
-        location.href = `https://rh.mobemaodeobra.com.br/public/trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
+        notification();
+        // location.href = `https://rh.mobemaodeobra.com.br/public/trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
       },
       async buscafolhar(ano){
         console.log(ano)

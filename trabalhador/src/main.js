@@ -38,13 +38,12 @@ const token = localStorage.getItem('token')
 //   }
 // })
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: process.env.VUE_APP_WEBSOCKETS_KEY,
-    cluster: process.env.VUE_APP_WEBSOCKETS_CLUSTER,
-    wsHost:process.env.VUE_APP_WEBSOCKETS_SERVER,
-    wsPort:6001,
-    forceTLS: true,
-    disableStats:true
+  broadcaster: 'pusher',
+  key: process.env.VUE_APP_WEBSOCKETS_KEY,
+  wsHost:process.env.VUE_APP_WEBSOCKETS_SERVER,
+  wsPort: 6001,
+  forceTLS: false,
+  disableStats: true,
 });
 new Vue({
   router,
