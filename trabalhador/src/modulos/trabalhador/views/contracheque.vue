@@ -135,7 +135,7 @@
 <script>
   import HeaderApp from'./header-app.vue'
   import { mapState, mapActions} from 'vuex'
-  import notification from "../../../plugins/notificacao.js"
+  // import notification from "../../../plugins/notificacao.js"
  
   export default {
     
@@ -279,7 +279,7 @@
         }
       },
       imprimir(item){
-        notification();
+        // notification();
         // location.href = `https://rh.mobemaodeobra.com.br/public/trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
       },
       async buscafolhar(ano){

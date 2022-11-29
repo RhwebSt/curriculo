@@ -40,9 +40,14 @@ const token = localStorage.getItem('token')
 window.Echo = new Echo({
   broadcaster: 'pusher',
   key: process.env.VUE_APP_WEBSOCKETS_KEY,
+  // cluster: process.env.VUE_APP_WEBSOCKETS_CLUSTER,
   wsHost:process.env.VUE_APP_WEBSOCKETS_SERVER,
+  // wsHost: window.location.hostname,
   wsPort: 6001,
   forceTLS: false,
+  encrypted: false,
+  // enabledTransports: ['ws', 'wss'],
+  // transports: ['websocket'],
   disableStats: true,
 });
 new Vue({

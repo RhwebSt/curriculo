@@ -41,3 +41,8 @@ pnpm-debug.log*
 /mobe-trabalhador/platforms
 /mobe-trabalhador/plugins
 /public/cordova.js
+
+# Cordova
+/mobe-trabalhador/platforms
+/mobe-trabalhador/plugins
+/public/cordova.js

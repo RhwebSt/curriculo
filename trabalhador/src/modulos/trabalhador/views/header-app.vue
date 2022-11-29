@@ -155,12 +155,12 @@ import { mapState, mapActions} from 'vuex'
         .listen('Folha',(e)=>{
           this.notificacao = true
           this.quant +=1
-          navigator.notification.alert(
-              'You are the winner!',  // message
-              alertDismissed,         // callback
-              'Game Over',            // title
-              'Done'                  // buttonName
-          );
+          // navigator.notification.alert(
+          //     'You are the winner!',  // message
+          //     alertDismissed,         // callback
+          //     'Game Over',            // title
+          //     'Done'                  // buttonName
+          // );
           console.log(e)
           // this.ActionNotificacaoNaolida({id:this.user.id});
         })
