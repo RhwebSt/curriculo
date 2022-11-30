@@ -1,5 +1,23 @@
 <template>
   <v-app id="inspire">
+   <v-snackbar
+      v-model="snackbar"
+      :color="cor"
+    >
+    <v-icon>{{icon}}</v-icon>
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="red"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
@@ -52,6 +70,7 @@
                            <div class="text-center mt-3">
                         <v-btn rounded type="submit" color="blue darken-4 mb-4" dark>Entra</v-btn>
                       </div>
+
                         </v-form>
                         <h3 class="text-center mt-4 ">
                          <router-link to="/recuperaSenha">
@@ -150,7 +169,11 @@ export default {
   data: () => ({
     step: 1,
     email:'',
-    senha:''
+    senha:'',
+    snackbar: false,
+    text:'',
+    cor:'',
+    icon:'',
   }),
   props: {
     source: String
@@ -165,10 +188,14 @@ export default {
           var formData = new FormData(login);
           await this.ActionLogin(formData)
           if(this.msg.status == 401){
-            this.$swal({
-              icon: 'error',
-              text: this.msg.body,
-            });
+            // this.$swal({
+            //   icon: 'error',
+            //   text: this.msg.body,
+            // });
+            this.snackbar = true;
+            this.text = this.msg.body.error;
+            this.cor = 'red accent-2';
+            this.icon = 'mdi-account-cancel';
             return false;
           }
           if(this.msg.status == 200){

@@ -123,8 +123,10 @@
  
 </template>
 <script>
-import { mapState, mapActions} from 'vuex'
-   
+  import { mapState, mapActions} from 'vuex'
+  import notification from "../../../plugins/notificacao.js"
+  import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async';
+  
   export default {
     data () {
       return {
@@ -138,38 +140,45 @@ import { mapState, mapActions} from 'vuex'
         ...mapState('auth',['user']),
         ...mapState('trabalhador',['quantnotificaticao']) 
     },
-    mounted(){
+    async mounted(){
       //  window.Echo.private('App.User.'+this.user.trabalhador_id)
       //   .listen('Vales',(e)=>{
       //     console.log(e)
       //     this.notificacao = true
       //   })
-        window.Echo.channel('channel-vale')
-        .listen('Vales',(e)=>{
-          this.notificacao = true
-          console.log(e)
-          // this.ActionNotificacaoNaolida({id:this.user.id});
-        })
+        // window.Echo.channel('channel-vale')
+        // .listen('Vales',(e)=>{
+        //   this.notificacao = true
+        //   console.log(e)
+        //   // this.ActionNotificacaoNaolida({id:this.user.id});
+        // })
         
-         window.Echo.channel('channel-folhar')
-        .listen('Folha',(e)=>{
-          this.notificacao = true
-          this.quant +=1
-          // navigator.notification.alert(
-          //     'You are the winner!',  // message
-          //     alertDismissed,         // callback
-          //     'Game Over',            // title
-          //     'Done'                  // buttonName
-          // );
-          console.log(e)
-          // this.ActionNotificacaoNaolida({id:this.user.id});
-        })
+        //  window.Echo.channel('channel-folhar')
+        // .listen('Folha',(e)=>{
+        //   this.notificacao = true
+        //   this.quant +=1
+        //   // navigator.notification.alert(
+        //   //     'You are the winner!',  // message
+        //   //     alertDismissed,         // callback
+        //   //     'Game Over',            // title
+        //   //     'Done'                  // buttonName
+        //   // );
+        //   console.log(e)
+        //   // this.ActionNotificacaoNaolida({id:this.user.id});
+        // })
         // this.ActionNotificacaolida({id:this.user.id})
-        // window.setInterval(() => {
-         
-        // }, 10000);
         // this.ActionNotificacaoNaolida({id:this.user.id});
-       
+        const notificacao = setIntervalAsync(async () => {
+          await this.ActionNotificacaoNaolida({id:this.user.id});
+          if(this.quantnotificaticao.body.length > 0){
+            this.notificacao = true
+            this.quant = this.quantnotificaticao.body.length
+            notification();
+          }else{
+            this.notificacao = false
+            this.quant = 0;
+          }
+        }, 10000);
     },
     methods:{
         ...mapActions('auth',['ActionLogout']),

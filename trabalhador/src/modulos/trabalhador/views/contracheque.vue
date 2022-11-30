@@ -279,8 +279,7 @@
         }
       },
       imprimir(item){
-        // notification();
-        // location.href = `https://rh.mobemaodeobra.com.br/public/trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
+        location.href = `${process.env.VUE_APP_API_CLUSTER}trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
       },
       async buscafolhar(ano){
         console.log(ano)

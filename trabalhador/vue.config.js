@@ -8,6 +8,6 @@ module.exports = defineConfig({
   publicPath: '',
 
   pluginOptions: {
-    cordovaPath: 'mobe-trabalhador'
+    cordovaPath: 'mob-trabalhador'
   }
 })

@@ -10,14 +10,14 @@ import VueTailwind from 'vue-tailwind'
 import "./assets/scss/app.scss";
 import './assets/tailwind.css'
 
-import Echo from 'laravel-echo';
+// import Echo from 'laravel-echo';
 Vue.config.productionTip = false
 import Maska from 'maska'
 Vue.use(Maska)
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
-window.Pusher = require('pusher-js');
-const token = localStorage.getItem('token')
+// window.Pusher = require('pusher-js');
+// const token = localStorage.getItem('token')
 // window.Echo = new Echo({
 //   broadcaster: 'pusher',
 //   key: process.env.VUE_APP_WEBSOCKETS_KEY,
@@ -37,19 +37,19 @@ const token = localStorage.getItem('token')
 //     }
 //   }
 // })
-window.Echo = new Echo({
-  broadcaster: 'pusher',
-  key: process.env.VUE_APP_WEBSOCKETS_KEY,
-  // cluster: process.env.VUE_APP_WEBSOCKETS_CLUSTER,
-  wsHost:process.env.VUE_APP_WEBSOCKETS_SERVER,
-  // wsHost: window.location.hostname,
-  wsPort: 6001,
-  forceTLS: false,
-  encrypted: false,
-  // enabledTransports: ['ws', 'wss'],
-  // transports: ['websocket'],
-  disableStats: true,
-});
+// window.Echo = new Echo({
+//   broadcaster: 'pusher',
+//   key: process.env.VUE_APP_WEBSOCKETS_KEY,
+//   // cluster: process.env.VUE_APP_WEBSOCKETS_CLUSTER,
+//   wsHost:process.env.VUE_APP_WEBSOCKETS_SERVER,
+//   // wsHost: window.location.hostname,
+//   wsPort: 6001,
+//   forceTLS: false,
+//   // encrypted: false,
+//   // enabledTransports: ['ws', 'wss'],
+//   // transports: ['websocket'],
+//   disableStats: true,
+// });
 new Vue({
   router,
   store,
