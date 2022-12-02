@@ -172,8 +172,8 @@
           await this.ActionNotificacaoNaolida({id:this.user.id});
           if(this.quantnotificaticao.body.length > 0){
             this.notificacao = true
-            this.quant = this.quantnotificaticao.body.length
-            notification();
+            this.quant = this.quantnotificaticao.body.length 
+            notification(this.quantnotificaticao.body);
           }else{
             this.notificacao = false
             this.quant = 0;
