@@ -38,7 +38,7 @@ export default function notification(dados) {
     return resulte;
 }
 function mostra(dados) {
-    cordova.plugins.notification.local.schedule(dados);
+    // cordova.plugins.notification.local.schedule(dados);
     // cordova.plugins.notification.local.schedule([
     //     { id: 0, title: 'Design team meeting'},
     //     { id: 1, summary: 'me@gmail.com', group: 'email', groupSummary: true },

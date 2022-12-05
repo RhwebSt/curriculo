@@ -146,12 +146,12 @@
       //     console.log(e)
       //     this.notificacao = true
       //   })
-        // window.Echo.channel('channel-vale')
-        // .listen('Vales',(e)=>{
-        //   this.notificacao = true
-        //   console.log(e)
-        //   // this.ActionNotificacaoNaolida({id:this.user.id});
-        // })
+        window.Echo.channel('channel-vale')
+        .listen('Vales',(e)=>{
+          this.notificacao = true
+          console.log(e)
+          // this.ActionNotificacaoNaolida({id:this.user.id});
+        })
         
         //  window.Echo.channel('channel-folhar')
         // .listen('Folha',(e)=>{
@@ -168,17 +168,17 @@
         // })
         // this.ActionNotificacaolida({id:this.user.id})
         // this.ActionNotificacaoNaolida({id:this.user.id});
-        const notificacao = setIntervalAsync(async () => {
-          await this.ActionNotificacaoNaolida({id:this.user.id});
-          if(this.quantnotificaticao.body.length > 0){
-            this.notificacao = true
-            this.quant = this.quantnotificaticao.body.length 
-            notification(this.quantnotificaticao.body);
-          }else{
-            this.notificacao = false
-            this.quant = 0;
-          }
-        }, 10000);
+        // const notificacao = setIntervalAsync(async () => {
+        //   await this.ActionNotificacaoNaolida({id:this.user.id});
+        //   if(this.quantnotificaticao.body.length > 0){
+        //     this.notificacao = true
+        //     this.quant = this.quantnotificaticao.body.length 
+        //     notification(this.quantnotificaticao.body);
+        //   }else{
+        //     this.notificacao = false
+        //     this.quant = 0;
+        //   }
+        // }, 10000);
     },
     methods:{
         ...mapActions('auth',['ActionLogout']),
