@@ -7,19 +7,20 @@ export default function notification(dados) {
  }
  
  function monta(dados) {
+    var itens = [];
     Object.values(dados).map(values=>{
         Object.entries(values.data).forEach(([key, value]) => {
-            var itens = [];
+           console.log(values.id);
             let item = {
-                id:key,
+                id:values.id,
                 title:'Contra cheque',
                 text: `O seu contra cheque do mês ${meses(value.fscompetencia)}.`
             }
             itens.push(item)
-            folhar(itens) 
-            console.log(itens);
+            // console.log(itens);
         });
     })
+    folhar(itens) 
     
  }
  function folhar(itens) {
