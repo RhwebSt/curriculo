@@ -88,20 +88,20 @@
                                     
                                     </v-alert>
                                      <v-alert
-                                    border="right"
+                                    border="top"
                                     colored-border
-                                    type="warning"
+                                    type="info"
                                     elevation="2"
                                     v-else-if="value1.fsstatus === 'Fechar'"
                                     >
-                                   A folhar do mês de {{meses(value1.fscompetencia)}} já esta desponivél para consulta.
+                                   Segue contracheque  de pagamento referente à {{meses(value1.fscompetencia)}}.
                                     <v-divider
                                         
                                     ></v-divider>
                                    <div class="text-end mt-4">
                                         <v-btn
                                         rounded
-                                        color="indigo"
+                                        color="info"
                                         dark
                                         @click="imprimir(value1.id)"
                                         >
@@ -233,13 +233,13 @@
                 let resulte = '';
                 meses.forEach((element,index) => {
                 if((index+1) === parseInt(m[1])){
-                    resulte = element
+                    resulte = `${element}/${m[0]}`
                 }
                 });
                 return resulte;
             },
             imprimir(folhar_id){
-                location.href = `http://127.0.0.1:8000/trabalhador/recibo/${this.user.trabalhador_id}/${folhar_id}`;
+                location.href = `${process.env.VUE_APP_API_CLUSTER}trabalhador/recibo/${this.user.trabalhador_id}/${folhar_id}`;
             },
         },
          mounted(){

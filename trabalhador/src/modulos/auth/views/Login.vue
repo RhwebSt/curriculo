@@ -53,6 +53,7 @@
                             label="Digite seu email"
                             name="email"
                             v-model='email'
+                            :rules="emailRules"
                             prepend-icon="mdi-email"
                             type="text"
                             color="teal accent-3"
@@ -61,6 +62,7 @@
                           <v-text-field
                            v-model='senha'
                             id="password"
+                            :rules="passwordRules"
                             label="Digite sua senha"
                             name="password"
                             prepend-icon="mdi-lock"
@@ -68,7 +70,12 @@
                             color="teal accent-3"
                           />
                            <div class="text-center mt-3">
-                        <v-btn rounded type="submit" color="blue darken-4 mb-4" dark>Entra</v-btn>
+                        <v-btn rounded block type="submit" color="blue darken-4 mb-4" 
+                        :loading="loading"
+                        :disabled="loading"
+                        dark>Entra
+                       
+                        </v-btn>
                       </div>
 
                         </v-form>
@@ -167,13 +174,23 @@
 import {mapActions,mapState} from 'vuex'
 export default {
   data: () => ({
+    loader: null,
     step: 1,
-    email:'',
-    senha:'',
+     valid: true,
     snackbar: false,
     text:'',
     cor:'',
     icon:'',
+    loading: false,
+    email: '',
+      emailRules: [
+        v => !!v || 'E-mail é obrigatório',
+        v => /.+@.+\..+/.test(v) || 'O E-mail deve ser válido',
+      ],
+    senha: '',
+      passwordRules: [
+        v => !!v || 'Senha é obrigatória',
+      ],
   }),
   props: {
     source: String
@@ -181,12 +198,28 @@ export default {
   computed:{
     ...mapState('auth',['msg']) 
   },
+  // watch: {
+  //     loader () {
+  //       const l = this.loader
+  //       this[l] = !this[l]
+  //       console.log(l, this[l])
+  //       setTimeout(() => (this[l] = false), 3000)
+
+  //       this.loader = null
+  //     },
+  //   },
   methods:{
     ...mapActions('auth',['ActionLogin']),
+    
       async submit(){ 
+        if(!this.$refs.form.validate()){
+          return
+        }
+          this.loading = true
           let login = document.getElementById('login');
           var formData = new FormData(login);
           await this.ActionLogin(formData)
+           this.loading = false
           if(this.msg.status == 401){
             // this.$swal({
             //   icon: 'error',
@@ -196,6 +229,7 @@ export default {
             this.text = this.msg.body.error;
             this.cor = 'red accent-2';
             this.icon = 'mdi-account-cancel';
+            
             return false;
           }
           if(this.msg.status == 200){
@@ -210,3 +244,41 @@ export default {
   }
 };
 </script>
+<style>
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

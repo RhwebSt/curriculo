@@ -1,5 +1,5 @@
 
-
+var itens = [];
 export default function notification(dados) { 
     monta(dados);
     return
@@ -7,18 +7,27 @@ export default function notification(dados) {
  }
  
  function monta(dados) {
-    var itens = [];
-    Object.values(dados).map(values=>{
+    
+    Object.entries(dados).forEach(([key,values])=>{
+        let item = {
+            id:key,
+            title:'',
+            text:''
+        }
         Object.entries(values.data).forEach(([key, value]) => {
-           console.log(values.id);
-            let item = {
-                id:values.id,
-                title:'Contra cheque',
-                text: `O seu contra cheque do mês ${meses(value.fscompetencia)}.`
-            }
-            itens.push(item)
-            // console.log(itens);
+           if (itens.length > 0) {
+                itens.forEach(i => {
+                    if (i.id !== values.id) {
+                        item.title='Contra cheque'
+                        item.text =`O seu contra cheque do mês ${meses(value.fscompetencia)}.`
+                    }
+                });
+           }else{
+            item.title ='Contra cheque';
+            item.text=`O seu contra cheque do mês ${meses(value.fscompetencia)}.`
+           }
         });
+        itens.push(item)
     })
     folhar(itens) 
     
@@ -39,7 +48,8 @@ export default function notification(dados) {
     return resulte;
 }
 function mostra(dados) {
-    // cordova.plugins.notification.local.schedule(dados);
+    // console.log(dados);
+    cordova.plugins.notification.local.schedule(dados);
     // cordova.plugins.notification.local.schedule([
     //     { id: 0, title: 'Design team meeting'},
     //     { id: 1, summary: 'me@gmail.com', group: 'email', groupSummary: true },

@@ -32,14 +32,16 @@
       <template v-slot:default="{ item }">
         <v-list-item  @click="imprimir(item)">
           <v-list-item-avatar>
-            <v-avatar
-              :color="item.color"
-              size="56"
-              class="white--text"
+            <v-btn
+              class="indigo"
+               x-small
+              fab
+              dark
+             
             >
             
             <v-icon>mdi-file</v-icon>
-            </v-avatar>
+            </v-btn>
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -48,22 +50,15 @@
           
 
           <v-list-item-action>
-            <v-btn
-              class="indigo"
-               x-small
-              fab
-              dark
-             
-            >
-              
+          
 
               <v-icon
                
                 
               >
-               mdi-calendar-month
+               mdi-chevron-right
               </v-icon>
-            </v-btn>
+          
           </v-list-item-action>
         </v-list-item>
         <v-divider></v-divider>
@@ -280,7 +275,7 @@
       },
       imprimir(item){
         // notification()
-        //location.href = `${process.env.VUE_APP_API_CLUSTER}trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
+        location.href = `${process.env.VUE_APP_API_CLUSTER}trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
       },
       async buscafolhar(ano){
         console.log(ano)
