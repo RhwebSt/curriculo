@@ -18,5 +18,9 @@ export default{
     atualizarsenha:{
         method:'post',
         url:'senha/update'
+    },
+    historico:{
+        method:'get',
+        url:'vale/historico{/id}{/competencia}'
     }
 }

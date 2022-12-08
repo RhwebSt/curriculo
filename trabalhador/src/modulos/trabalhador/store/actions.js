@@ -101,6 +101,15 @@ export const ActionAtualizarSenha = ({dispatch},payload)=>{
         dispatch('ActionSetMsg',res)
     })
 }
+export const ActionHistorico = ({dispatch},payload)=>{
+    return serves.trabalhador.historico(payload).then(res => {
+        dispatch('ActionSetHistarico',res.data)
+    }).catch(res => {
+        if (res.status == 401) {
+            dispatch('ActionSetHistarico',res.data)
+        }
+    })
+}
 export const ActionSetQuantNotificacao = ({commit},payload) =>{
     commit(types.SET_TRABALHADOR_QUANTNOTIFICACAO,payload)
 }
@@ -112,6 +121,9 @@ export const ActionSetLista = ({commit},payload) =>{
 }
 export const ActionSetMsg = ({commit},payload) =>{
     commit(types.SET_TRABALHADOR_MSG,payload)
+}
+export const ActionSetHistarico = ({commit},payload) =>{
+    commit(types.SET_TRABALHADOR_HISTORICO,payload)
 }
 // export const ActionSignOut = ({dispatch})=>{
 //     storage.setHeaderToken('');

@@ -69,6 +69,34 @@
       </template>
     </v-snackbar>
   </v-form>
+   <v-card width="400" class="mt-5" v-if="messages.length > 0">
+       
+        <v-card-text>
+          <div class="font-weight-bold ml-8 mb-2">
+            Historico dos pedidos de vale.
+          </div>
+
+          <v-timeline
+            align-top
+            dense
+          >
+            <v-timeline-item
+              v-for="message in messages"
+              :key="message.time"
+              :color="message.color"
+              :icon="message.icon"
+              small
+            >
+              <div>
+                <div class="font-weight-normal">
+                  <strong>{{ message.from }}</strong> @{{ message.time }}
+                </div>
+                <div>{{ message.message }}</div>
+              </div>
+            </v-timeline-item>
+          </v-timeline>
+        </v-card-text>
+      </v-card>
   </v-container>
   </div>
   
@@ -79,6 +107,7 @@
 import HeaderApp from'./header-app.vue'
   export default {
     data: () => ({
+      messages: [],
       valid: true,
       cpf: '',
       cpfRules: [
@@ -97,13 +126,37 @@ import HeaderApp from'./header-app.vue'
     }),
     computed:{
         ...mapState('auth',['user']),
-         ...mapState('trabalhador',['msg']) 
+         ...mapState('trabalhador',['msg']),
+          ...mapState('trabalhador',['historico']) 
     },
     components:{
       HeaderApp
     },
+    async mounted(){
+       let datahoje = new Date();
+       let mes = datahoje.getMonth() < 10 ? `0${datahoje.getMonth()+1}`:datahoje.getMonth()+1
+       let competencia = `${datahoje.getFullYear()}-${mes}`;
+       let dados ={
+          id:this.user.trabalhador_id,
+          competencia:competencia
+       }
+       await this.ActionHistorico(dados)
+       Object.values(this.historico).forEach(value => {
+        console.log(value)
+            let mensagem =   {
+                from: 'You',
+                message: `Sure, I'll see you later.`,
+                time: '10:42am',
+                color: 'red darken-1',
+                icon: 'mdi-cash-check',
+            } 
+            this.mensagem.push(mensagem);
+       });
+       
+    },
     methods: {
         ...mapActions('trabalhador',['ActionVale']),
+        ...mapActions('trabalhador',['ActionHistorico']),
       validate () {
         this.$refs.form.validate()
       },

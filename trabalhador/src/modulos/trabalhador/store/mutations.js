@@ -14,5 +14,8 @@ export default{
     },
     [types.SET_TRABALHADOR_QUANTNOTIFICACAO](state,payload){
         state.quantnotificaticao = payload
+    },
+    [types.SET_TRABALHADOR_HISTORICO](state,payload){
+        state.historico = payload
     }
 }

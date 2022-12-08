@@ -3,5 +3,6 @@ export default{
     editartrabalhador:{},
     msg:'',
     notificaticao:'',
-    quantnotificaticao:''
+    quantnotificaticao:'',
+    historico:''
 }
