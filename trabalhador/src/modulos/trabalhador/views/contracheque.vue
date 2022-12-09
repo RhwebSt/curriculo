@@ -12,9 +12,10 @@
   >
    
 
-    <v-card-text class="pt-4">
-     Contra cheques
-    </v-card-text>
+    
+    <v-toolbar-title class="pa-4">
+    Contra cheques
+    </v-toolbar-title>
 
     <v-divider></v-divider>
       <v-tabs>
@@ -64,19 +65,21 @@
         <v-divider></v-divider>
       </template>
     </v-virtual-scroll>
-    <v-container v-else>
-     <v-alert
+    <v-skeleton-loader
+          v-bind="attrs"
+          type="table-heading"
+          v-if="leord"
+    ></v-skeleton-loader>
+    <v-alert
+      v-else-if="!leord && all_items.length < 1"
       border="right"
       colored-border
       type="error"
       elevation="2"
-      class="mt-5"
-      
+      class="ma-5"
     >
-      Não folha neste periodo.
+     Não à folhar lançada para este periodo.
     </v-alert>
-    </v-container>
-   
   </v-card>
 
       <v-card class="flex justify-center content-center min-h-screen d-none">
@@ -178,6 +181,7 @@
         item_paget:10,
         page: 1,
         length:4,
+        leord:true,
          colors: ['#2196F3', '#90CAF9', '#64B5F6', '#42A5F5', '#1E88E5', '#1976D2', '#1565C0', '#0D47A1', '#82B1FF', '#448AFF', '#2979FF', '#2962FF'],
       names: ['Oliver', 'Jake', 'Noah', 'James', 'Jack', 'Connor', 'Liam', 'John', 'Harry', 'Callum', 'Mason', 'Robert', 'Jacob', 'Jacob', 'Jacob', 'Michael', 'Charlie', 'Kyle', 'William', 'William', 'Thomas', 'Joe', 'Ethan', 'David', 'George', 'Reece', 'Michael', 'Richard', 'Oscar', 'Rhys', 'Alexander', 'Joseph', 'James', 'Charlie', 'James', 'Charles', 'William', 'Damian', 'Daniel', 'Thomas', 'Amelia', 'Margaret', 'Emma', 'Mary', 'Olivia', 'Samantha', 'Olivia', 'Patricia', 'Isla', 'Bethany'],
       surnames: ['Smith', 'Anderson', 'Clark', 'Wright', 'Mitchell', 'Johnson', 'Thomas', 'Rodriguez', 'Lopez', 'Perez', 'Williams', 'Jackson', 'Lewis', 'Hill', 'Roberts', 'Jones', 'White', 'Lee', 'Scott', 'Turner', 'Brown', 'Harris', 'Walker', 'Green', 'Phillips', 'Davis', 'Martin', 'Hall', 'Adams', 'Campbell', 'Miller', 'Thompson', 'Allen', 'Baker', 'Parker', 'Wilson', 'Garcia', 'Young', 'Gonzalez', 'Evans', 'Moore', 'Martinez', 'Hernandez', 'Nelson', 'Edwards', 'Taylor', 'Robinson', 'King', 'Carter', 'Collins'],
@@ -226,11 +230,11 @@
         page = 0;
       }
       await this.ActionLista({id:this.user.trabalhador_id,length:this.length,page:page,search:'',ano:this.anos[0]});
-      this.all_items = [];
-      for (let i = 0; i < this.listatrabalhador.data.length; i++) {
-        this.all_items.push( this.listatrabalhador.data[i])
-      }
-
+        this.all_items = [];
+        for (let i = 0; i < this.listatrabalhador.data.length; i++) {
+          this.all_items.push( this.listatrabalhador.data[i])
+        }
+        this.leord = false;
       },
 
       watch: {
@@ -278,10 +282,11 @@
         location.href = `${process.env.VUE_APP_API_CLUSTER}trabalhador/recibo/${item.trabalhador_id}/${item.id}`;
       },
       async buscafolhar(ano){
-        console.log(ano)
+        
         await this.ActionLista({id:this.user.trabalhador_id,length:this.length,page:'',search:this.search,ano:ano});
       //  this.totalPages = this.listatrabalhador.data.count > 10 ? Math.ceil(this.listatrabalhador.data.count / 10) : 1
       //   this.page = !page0 ? this.options.page : 1
+        this.leord = true;
         if(this.listatrabalhador.data.length > 0){
           this.all_items = [];
           for (let i = 0; i < this.listatrabalhador.data.length; i++) {
@@ -289,7 +294,9 @@
           }
         }else{
           this.all_items = [];
+         
         }
+         this.leord = false;
       },
       async sair(){
         try{ 

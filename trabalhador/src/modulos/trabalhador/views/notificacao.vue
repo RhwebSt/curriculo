@@ -126,21 +126,22 @@
                                     <v-divider
                                         
                                     ></v-divider>
-                                    
-                                    <v-chip
-                                        class="ma-2"
-                                        x-small
-                                        >
-                                        Realizado:
-                                    {{value.datapedido}}
-                                        </v-chip>
-                                    <v-chip
-                                        class="ma-2"
-                                        x-small
-                                        >
-                                        Aprovado:
-                                     {{value1.dataresulte}}
-                                        </v-chip>
+                                    <div class="d-flex flex-row">
+                                            <v-chip
+                                                class="ma-2"
+                                                x-small
+                                                >
+                                                Realizado:
+                                            {{value.datapedido}}
+                                                </v-chip>
+                                            <v-chip
+                                                class="ma-2"
+                                                x-small
+                                                >
+                                                Aprovado:
+                                            {{value1.dataresulte}}
+                                                </v-chip>
+                                        </div>
                                     </v-alert>
                                     <v-alert
                                     border="right"
@@ -193,16 +194,23 @@
                        
                     </div>
                 </div>
-                <div v-else>
-                    <v-alert
-                    border="right"
-                    colored-border
-                    type="error"
-                    elevation="2"
-                    >
-                    Não à notificação.
-                    </v-alert>
-                </div>
+                
+                <v-skeleton-loader
+                    v-bind="attrs"
+                    type="table-heading"
+                    v-if="leord"
+                ></v-skeleton-loader>
+                <v-alert
+                v-else-if="!leord && notificaticao.body.length < 1"
+                border="right"
+                colored-border
+                type="error"
+                elevation="2"
+                class="ma-5"
+                >
+                Não à folhar lançada para este periodo.
+                </v-alert>
+               
         </v-container>
     </div>
   </v-sheet>
@@ -213,6 +221,11 @@
     export default{
         components:{
             HeaderApp
+        },
+        data () {
+            return {
+                leord:true,
+            }
         },
         computed:{
             ...mapState('auth',['user']),
@@ -242,12 +255,13 @@
                 location.href = `${process.env.VUE_APP_API_CLUSTER}trabalhador/recibo/${this.user.trabalhador_id}/${folhar_id}`;
             },
         },
-         mounted(){
+        async mounted(){
             try{ 
                 // window.setInterval(() => {
                 //     this.ActionNotificacaolida({id:this.user.id});
                 // }, 10000);
-                this.ActionNotificacaolida({id:this.user.id});
+               await this.ActionNotificacaolida({id:this.user.id});
+               this.leord = false;
                 // await this.ActionNotificacaoNaolida({id:this.user.id})
             } catch (err){
                 console.log('erro');

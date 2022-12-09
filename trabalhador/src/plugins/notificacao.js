@@ -9,44 +9,37 @@ export default function notification(dados) {
  function monta(dados) {
     
     Object.entries(dados).forEach(([key,values])=>{
-       
+        let item = {
+            id:key,
+            smallIcon: process.env.VUE_APP_API_LOGO,
+            icon: process.env.VUE_APP_API_LOGO,
+            title:'',
+            text:''
+        }
         if (!localStorage.getItem(values.id)) {
-            let item = {
-                id:key,
-                smallIcon: process.env.VUE_APP_API_LOGO,
-                icon: process.env.VUE_APP_API_LOGO,
-                title:'',
-                text:''
-            }
+           
             if (values.type.includes('Vale')) {
+               
                 Object.entries(values.data).forEach(([key, value]) => {
                     item.title =`Pedido de vale ${value.datapedido}`;
                     item.text=value.mensagem
                 });
-            
-            }else{
+                itens.push(item)
+               
+            }else if (values.type.includes('TrabalhadorFolhar')){
+              
                 Object.entries(values.data).forEach(([key, value]) => {
-                    if (itens.length > 0) {
-                        itens.forEach(i => {
-                            if (i.id !== values.id) {
-                                item.title='Contra cheque'
-                                item.text =`O seu contra cheque do mês ${meses(value.fscompetencia)}.`
-                            }
-                        });
-                    }else{
                     item.title ='Contra cheque';
                     item.text=`O seu contra cheque do mês ${meses(value.fscompetencia)}.`
-                    }
                 });
+                itens.push(item)
             }
             localStorage.setItem(values.id,values.id)
-            itens.push(item)
-        }else{
-            itens = [];
+            
         }
-       
+        
     })
-    folhar(itens) 
+    folhar(itens); 
  }
  function folhar(itens) {
     mostra(itens)

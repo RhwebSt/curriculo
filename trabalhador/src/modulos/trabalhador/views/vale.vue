@@ -6,6 +6,9 @@
         >
   <div >
   <header-app/>
+   <v-card-text class=" red--text">
+     Lembre-se: O Valor do vale não pode ultrapassar o valor de R$ 300,00 reais.
+    </v-card-text>
   <v-container>
     <v-toolbar-title>Pedidor de vale</v-toolbar-title>
   <v-form
@@ -43,7 +46,9 @@
     <v-btn
     block
     type="submit"
-      :disabled="!valid"
+      
+      :loading="loading"
+      :disabled="loading"
       class="mr-4 indigo white--text"
       @click="validate"
     >
@@ -69,34 +74,58 @@
       </template>
     </v-snackbar>
   </v-form>
-   <v-card width="400" class="mt-5" v-if="messages.length > 0">
-       
-        <v-card-text>
-          <div class="font-weight-bold ml-8 mb-2">
-            Historico dos pedidos de vale.
-          </div>
+    <v-card width="400" class="mt-5" v-if="messages.length > 0">
+      <v-card-text>
+        <div class="font-weight-bold ml-8 mb-2">
+          Historico dos pedidos de vale.
+        </div>
 
-          <v-timeline
-            align-top
-            dense
+        <v-timeline
+          align-top
+          dense
+        >
+          <v-timeline-item
+            v-for="message in messages"
+            :key="message.time"
+            :color="message.color"
+            :icon="message.icon"
+            small
           >
-            <v-timeline-item
-              v-for="message in messages"
-              :key="message.time"
-              :color="message.color"
-              :icon="message.icon"
-              small
-            >
-              <div>
-                <div class="font-weight-normal">
-                  <strong>{{ message.from }}</strong> @{{ message.time }}
-                </div>
-                <div>{{ message.message }}</div>
+            <div>
+              <div class="font-weight-normal">
+                <strong>{{ message.from }}</strong>
+                <v-chip
+                  class="ma-2"
+                  x-small
+                  color="indigo "
+                  label
+                  text-color="white"
+                >
+                
+                  {{ message.time }}
+                </v-chip> 
               </div>
-            </v-timeline-item>
-          </v-timeline>
-        </v-card-text>
-      </v-card>
+              <div>{{ message.message }}</div>
+            </div>
+          </v-timeline-item>
+        </v-timeline>
+      </v-card-text>
+    </v-card>
+    <v-skeleton-loader
+          v-bind="attrs"
+          type="article"
+          v-if="leord"
+    ></v-skeleton-loader>
+    <v-alert
+      v-else-if="!leord && messages.length < 1"
+      border="right"
+      colored-border
+      type="error"
+      elevation="2"
+      class="ma-5"
+    >
+     Não à historico de pedidos de vale..
+    </v-alert>
   </v-container>
   </div>
   
@@ -109,6 +138,9 @@ import HeaderApp from'./header-app.vue'
     data: () => ({
       messages: [],
       valid: true,
+      loading: false,
+      loader: null,
+      leord:true,
       cpf: '',
       cpfRules: [
         v => !!v || 'Este campo não pode esta vazio!',
@@ -123,6 +155,12 @@ import HeaderApp from'./header-app.vue'
       text:'',
       cor:'',
       icon:'',
+      attrs: {
+        class: 'mb-6',
+        boilerplate: false,
+        elevation: 2,
+      },
+
     }),
     computed:{
         ...mapState('auth',['user']),
@@ -141,16 +179,40 @@ import HeaderApp from'./header-app.vue'
           competencia:competencia
        }
        await this.ActionHistorico(dados)
+       this.leord = false;
        Object.values(this.historico).forEach(value => {
-        console.log(value)
+        
+          if(value.dsstatus === "Aprovado"){
             let mensagem =   {
-                from: 'You',
-                message: `Sure, I'll see you later.`,
-                time: '10:42am',
-                color: 'red darken-1',
+                from: 'Vales aprovados.',
+                message: `Valor aprovado R$${value.dfvalor.toFixed(2).replace('.', ',')}.`,
+                time: this.conveterdata(value.dscompetencia),
+                color: 'teal darken-3',
                 icon: 'mdi-cash-check',
             } 
-            this.mensagem.push(mensagem);
+             this.messages.push(mensagem);
+          }
+          if(value.dsstatus === "Rejeito"){
+            let mensagem =   {
+                from: 'Vales regeitado.',
+                message: `Valor regeitado R$${value.dfvalor.toFixed(2).replace('.', ',')}.`,
+                time: this.conveterdata(value.dscompetencia),
+                color: 'red darken-1',
+                icon: 'mdi-cash-remove',
+            } 
+             this.messages.push(mensagem);
+          }
+           if(value.dsstatus === "Analise"){
+            let mensagem =   {
+                from: 'Vales em analise.',
+                message: `Valor sendo analizado R$${value.dfvalor.toFixed(2).replace('.', ',')}.`,
+                time: this.conveterdata(value.dscompetencia),
+                color: 'yellow darken-1',
+                icon: 'mdi-cash-sync',
+            } 
+             this.messages.push(mensagem);
+          }
+           
        });
        
     },
@@ -162,13 +224,13 @@ import HeaderApp from'./header-app.vue'
       },
        async submit(){ 
         try{
-        //   this.loading = true
+        this.loading = true
         this.snackbar = false;
         this.text = '';
           let vale = document.getElementById('vale');
           var formData = new FormData(vale);
           await this.ActionVale(formData)
-         
+           this.loading = false
           if(this.msg.status == 200){
             this.snackbar = true;
             this.text = this.msg.body;
@@ -196,7 +258,12 @@ import HeaderApp from'./header-app.vue'
         //   this.alert = false;
         //   this.textAlert = this.msg.body.error;
         }
-      }
+      },
+      conveterdata(dados){
+          let novadata = dados.split('-') 
+          novadata = `${novadata[1]}/${novadata[0]}`
+          return novadata
+      },
     },
   }
 </script>

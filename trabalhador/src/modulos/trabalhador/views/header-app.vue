@@ -178,7 +178,12 @@
             this.notificacao = false
             this.quant = 0;
           }
+           if(this.user.status === 401){
+              await this.ActionLogout('')
+              this.$router.push({name:'login'});
+            }
         }, 10000);
+       
     },
     methods:{
         ...mapActions('auth',['ActionLogout']),

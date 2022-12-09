@@ -51,3 +51,13 @@ pnpm-debug.log*
 /mob-trabalhador/platforms
 /mob-trabalhador/plugins
 /public/cordova.js
+
+# Cordova
+/mob-trabalhador/platforms
+/mob-trabalhador/plugins
+/public/cordova.js
+
+# Cordova
+/mobe-trabalhador/platforms
+/mobe-trabalhador/plugins
+/public/cordova.js

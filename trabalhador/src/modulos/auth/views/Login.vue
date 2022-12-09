@@ -70,10 +70,10 @@
                             color="teal accent-3"
                           />
                            <div class="text-center mt-3">
-                        <v-btn rounded block type="submit" color="blue darken-4 mb-4" 
+                        <v-btn  block type="submit" color="blue darken-4 mb-4 white--text" 
                         :loading="loading"
                         :disabled="loading"
-                        dark>Entra
+                        >Entra
                        
                         </v-btn>
                       </div>
@@ -227,6 +227,18 @@ export default {
             // });
             this.snackbar = true;
             this.text = this.msg.body.error;
+            this.cor = 'red accent-2';
+            this.icon = 'mdi-account-cancel';
+            
+            return false;
+          }
+          if(this.msg.status == 422){
+            // this.$swal({
+            //   icon: 'error',
+            //   text: this.msg.body,
+            // });
+            this.snackbar = true;
+            this.text = this.msg.body.errors.password[0];
             this.cor = 'red accent-2';
             this.icon = 'mdi-account-cancel';
             
