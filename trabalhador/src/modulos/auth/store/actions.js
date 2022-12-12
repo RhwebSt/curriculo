@@ -44,6 +44,9 @@ export const ActionSession = ({dispatch})=>{
             await serves.auth.session().then(res => {
                
                 dispatch('ActionSetUser',res.data)
+            }).catch(err => {
+                dispatch('ActionSetUser',err)
+                dispatch('ActionSignOut')
             })
            
             // dispatch('ActionSetUser',user)
