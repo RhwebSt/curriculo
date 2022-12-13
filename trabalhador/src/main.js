@@ -4,6 +4,8 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 // import validate from "./plugins/validate";
 // import laravel from "./plugins/laravel";
 import VueTailwind from 'vue-tailwind'
@@ -16,7 +18,9 @@ import Maska from 'maska'
 Vue.use(Maska)
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
+
 window.Pusher = require('pusher-js');
+Vue.use(VueSweetalert2);
 // const token = localStorage.getItem('token')
 // window.Echo = new Echo({
 //   broadcaster: 'pusher',

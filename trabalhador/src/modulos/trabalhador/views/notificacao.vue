@@ -257,14 +257,10 @@
         },
         async mounted(){
             try{ 
-                // window.setInterval(() => {
-                //     this.ActionNotificacaolida({id:this.user.id});
-                // }, 10000);
                await this.ActionNotificacaolida({id:this.user.id});
                this.leord = false;
-                // await this.ActionNotificacaoNaolida({id:this.user.id})
             } catch (err){
-                console.log('erro');
+                this.$router.push({name:'login'});
             }
         }
     }

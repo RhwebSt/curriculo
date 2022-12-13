@@ -1,5 +1,5 @@
 
-var itens = [];
+
 export default function notification(dados) { 
     monta(dados);
     return
@@ -7,7 +7,7 @@ export default function notification(dados) {
  }
  
  function monta(dados) {
-    
+    var itens = [];
     Object.entries(dados).forEach(([key,values])=>{
         let item = {
             id:key,
@@ -39,7 +39,11 @@ export default function notification(dados) {
         }
         
     })
-    folhar(itens); 
+    if (itens.length > 0) {
+        folhar(itens); 
+    }
+   
+    
  }
  function folhar(itens) {
     mostra(itens)

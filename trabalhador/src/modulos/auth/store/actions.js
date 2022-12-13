@@ -13,6 +13,9 @@ export const ActionLogin = ({dispatch},payload)=>{
 export const ActionLogout = ({dispatch},payload)=>{
     return serves.auth.logout(payload).then(res => {
         dispatch('ActionSignOut')
+    }).catch(err => {
+        dispatch('ActionSignOut')
+        dispatch('ActionSetMsg',err)
     })
 }
 export const ActionRecuperaSenha = ({dispatch},payload)=>{

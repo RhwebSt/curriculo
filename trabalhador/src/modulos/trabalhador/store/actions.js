@@ -95,10 +95,9 @@ export const ActionNotificacaoNaolida = ({dispatch},payload)=>{
 export const ActionAtualizarSenha = ({dispatch},payload)=>{
     return serves.trabalhador.atualizarsenha(payload).then(res => {
         dispatch('ActionSetMsg',res)
-       
     }).catch(res => {
-       
         dispatch('ActionSetMsg',res)
+        dispatch('ActionSignOut')
     })
 }
 export const ActionHistorico = ({dispatch},payload)=>{
@@ -125,8 +124,13 @@ export const ActionSetMsg = ({commit},payload) =>{
 export const ActionSetHistarico = ({commit},payload) =>{
     commit(types.SET_TRABALHADOR_HISTORICO,payload)
 }
-// export const ActionSignOut = ({dispatch})=>{
-//     storage.setHeaderToken('');
-//     storage.deleteLocalToken();
-//     dispatch('ActionSetToken','');
-// }
+export const ActionSignOut = ({dispatch})=>{
+    storage.setHeaderToken('');
+    storage.deleteLocalToken();
+    dispatch('ActionSetToken','');
+}
+export const ActionSetToken = ({commit},payload) =>{
+    storage.setHeaderToken(payload)
+    storage.setLocalToken(payload)
+    commit(types.SET_TOKEN,payload)
+}
