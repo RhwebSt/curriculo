@@ -233,7 +233,7 @@
         },
         methods:{
              ...mapActions('trabalhador',['ActionNotificacaolida']),
-             ...mapActions('trabalhador',['ActionNotificacaoNaolida']),
+            //  ...mapActions('trabalhador',['ActionNotificacaoNaolida']),
             conveterdata(dados){
                 let novodados = dados.split('T');
                 let novadata = novodados[0].split('-') 

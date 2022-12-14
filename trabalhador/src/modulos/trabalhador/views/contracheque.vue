@@ -18,7 +18,7 @@
     </v-toolbar-title>
 
     <v-divider></v-divider>
-      <v-tabs>
+      <v-tabs fixed-tabs >
           <v-tab v-for="item of anos">
           <span @click="buscafolhar(item)">  {{ item }} </span>
           </v-tab>

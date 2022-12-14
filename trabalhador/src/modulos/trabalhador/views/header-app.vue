@@ -171,7 +171,8 @@
         // this.ActionNotificacaolida({id:this.user.id})
         // this.ActionNotificacaoNaolida({id:this.user.id});
         try{
-            await this.ActionNotificacaoNaolida({id:this.user.id});
+             this.ActionNotificacaoNaolida({id:this.user.id});
+            //  this.ActionNotificacaolida({id:this.user.id});
             this.notef = setIntervalAsync(async () => {
               if(this.user.id){
                 await this.ActionNotificacaoNaolida({id:this.user.id});
@@ -198,7 +199,7 @@
     },
     methods:{
         ...mapActions('auth',['ActionLogout']),
-        ...mapActions('trabalhador',['ActionNotificacaolida']),
+        // ...mapActions('trabalhador',['ActionNotificacaolida']),
         ...mapActions('trabalhador',['ActionNotificacaoNaolida']),
         imagem(){
           return image();
